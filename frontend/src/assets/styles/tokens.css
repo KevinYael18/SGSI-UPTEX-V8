@@ -1,0 +1,201 @@
+/**
+ * SGSI UPTex — Sistema de diseño institucional
+ * ---------------------------------------------------------------------
+ * Identidad basada en el logotipo de la Universidad Politécnica de Texcoco:
+ *   Verde UPTex   #0A7A3D  color principal (acciones primarias, marca, estados correctos)
+ *   Verde lima    #7AB51D  acento secundario (detalles, degradados, series de gráficas)
+ *   Rojo UPTex    #C8102E  alertas importantes, riesgos críticos, errores
+ *   Gris UPTex    escala neutra (textos secundarios, bordes, fondos)
+ *   Blanco        superficies y tarjetas en modo claro
+ *
+ * Los nombres de variables (--c-primary, --c-signal, --c-risk, …) se
+ * conservan del sistema anterior para que todas las vistas existentes
+ * hereden la nueva identidad sin modificar su lógica.
+ *
+ * Tipografía: Sora (encabezados) + Inter (cuerpo/UI) + JetBrains Mono
+ * (códigos de control ISO, hashes, timestamps).
+ *
+ * Firma visual: la cuadrícula probabilidad×impacto (matriz 5×5, ISO 27005)
+ * se reutiliza como motivo sutil en login, estados vacíos y encabezados.
+ * ---------------------------------------------------------------------
+ */
+
+:root {
+    color-scheme: light;
+
+    /* ---- Paleta institucional ---- */
+    --c-ink: #14181B;
+    --c-paper: #F4F6F5;
+
+    --c-primary: #0A7A3D;
+    --c-primary-strong: #075E2F;
+    --c-primary-soft: #E5F3EA;
+    --on-primary: #FFFFFF;
+
+    --c-signal: #0B8043;          /* enlaces, foco, elementos activos */
+    --c-signal-soft: #E3F2E8;
+
+    --c-lime: #7AB51D;
+    --c-lime-soft: #EFF6E0;
+
+    --c-risk: #C8102E;
+    --c-risk-strong: #A30D25;
+    --c-risk-solid: #C8102E;      /* fondo de botones de peligro */
+    --c-risk-soft: #FCEBED;
+
+    --c-amber: #B86E00;
+    --c-amber-soft: #FDF2DC;
+
+    --c-orange: #D4541C;
+    --c-orange-soft: #FDEADF;
+
+    --c-success: #15803D;
+    --c-success-soft: #E3F4E8;
+
+    --c-gray-50: #F7F8F8;
+    --c-gray-100: #EEF0F1;
+    --c-gray-200: #E2E5E7;
+    --c-gray-300: #CBD0D4;
+    --c-gray-400: #9AA2A8;
+    --c-gray-500: #6B747B;
+    --c-gray-600: #4D555B;
+    --c-gray-700: #343A3F;
+
+    /* ---- Roles semánticos ---- */
+    --bg: var(--c-paper);
+    --bg-subtle: #EDF0EE;
+    --surface: #FFFFFF;
+    --surface-raised: #FFFFFF;
+    --surface-hover: #F5F8F6;
+    --border: #E2E7E4;
+    --border-strong: #CCD3CF;
+    --text: #161B1D;
+    --text-muted: #59656A;
+    --text-subtle: #879196;
+    --text-inverse: #FFFFFF;
+
+    --focus-ring: 0 0 0 3px rgba(10, 122, 61, 0.22);
+    --overlay: rgba(14, 22, 18, 0.48);
+
+    --brand-gradient: linear-gradient(135deg, #075E2F 0%, #0A7A3D 52%, #3E9A2C 100%);
+    --brand-stripe: linear-gradient(90deg, #0A7A3D 0 40%, #7AB51D 40% 64%, #C8102E 64% 84%, #9AA2A8 84% 100%);
+
+    /* Series de gráficas (se leen desde JS con getComputedStyle) */
+    --chart-1: var(--c-primary);
+    --chart-2: var(--c-gray-500);
+    --chart-3: var(--c-lime);
+    --chart-4: var(--c-amber);
+    --chart-5: var(--c-risk);
+    --chart-grid: #E8ECEA;
+    --chart-text: #6B747B;
+
+    /* ---- Tipografía ---- */
+    --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', ui-monospace, monospace;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.9375rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.375rem;
+    --text-2xl: 1.875rem;
+
+    /* ---- Espaciado ---- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-8: 48px;
+
+    --page-pad: clamp(16px, 2.6vw, 36px);
+
+    /* ---- Bordes y sombras ---- */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 22px;
+
+    --shadow-sm: 0 1px 2px rgba(16, 32, 24, 0.05), 0 1px 1px rgba(16, 32, 24, 0.03);
+    --shadow-md: 0 6px 20px -6px rgba(16, 32, 24, 0.12), 0 2px 6px rgba(16, 32, 24, 0.05);
+    --shadow-lg: 0 20px 48px -12px rgba(16, 32, 24, 0.22);
+    --shadow-brand: 0 8px 20px -8px rgba(10, 122, 61, 0.55);
+
+    /* ---- Layout ---- */
+    --sidebar-width: 264px;
+    --sidebar-collapsed: 80px;
+    --topbar-height: 64px;
+    --bottomnav-height: 64px;
+
+    /* ---- Movimiento ---- */
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-fast: 140ms var(--ease);
+    --transition-base: 220ms var(--ease);
+}
+
+/* Modo oscuro: carbón neutro, tarjetas un tono más claras, verde y rojo
+   ajustados para conservar legibilidad sin resultar estridentes. */
+[data-theme='dark'] {
+    color-scheme: dark;
+
+    --c-primary: #34B36A;
+    --c-primary-strong: #4CC47D;
+    --c-primary-soft: #16281D;
+    --on-primary: #05130A;
+
+    --c-signal: #4CC47D;
+    --c-signal-soft: #15291D;
+
+    --c-lime: #9CCB4C;
+    --c-lime-soft: #222B15;
+
+    --c-risk: #F06373;
+    --c-risk-strong: #F4808D;
+    --c-risk-solid: #C93545;
+    --c-risk-soft: #34181C;
+
+    --c-amber: #E6A743;
+    --c-amber-soft: #302511;
+
+    --c-orange: #EE8653;
+    --c-orange-soft: #33200F;
+
+    --c-success: #4CC47D;
+    --c-success-soft: #15291D;
+
+    --c-gray-50: #1B1F22;
+    --c-gray-100: #22272A;
+    --c-gray-200: #2B3135;
+    --c-gray-300: #3A4146;
+    --c-gray-400: #6E787F;
+    --c-gray-500: #8C979E;
+    --c-gray-600: #B1BAC0;
+    --c-gray-700: #D3D9DD;
+
+    --bg: #0F1214;
+    --bg-subtle: #14181B;
+    --surface: #171B1E;
+    --surface-raised: #1D2226;
+    --surface-hover: #1F2528;
+    --border: #272D31;
+    --border-strong: #353C41;
+    --text: #E8ECEE;
+    --text-muted: #A2ACB2;
+    --text-subtle: #78838A;
+    --text-inverse: #0F1214;
+
+    --focus-ring: 0 0 0 3px rgba(76, 196, 125, 0.28);
+    --overlay: rgba(0, 0, 0, 0.62);
+
+    --brand-gradient: linear-gradient(135deg, #0B3D22 0%, #0E5530 55%, #1E6B2A 100%);
+
+    --chart-grid: #262C30;
+    --chart-text: #9AA4AA;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 24px 56px -12px rgba(0, 0, 0, 0.7);
+    --shadow-brand: 0 8px 22px -10px rgba(52, 179, 106, 0.55);
+}

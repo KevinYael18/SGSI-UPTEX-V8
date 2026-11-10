@@ -1,0 +1,141 @@
+@import './tokens.css';
+@import './paginas.css';
+
+* { box-sizing: border-box; }
+
+html, body, #app { min-height: 100%; }
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0 0 var(--space-3);
+    color: var(--text);
+    overflow-wrap: anywhere;
+}
+
+h1 { font-size: clamp(1.4rem, 1.05rem + 1.3vw, var(--text-2xl)); }
+h2 { font-size: clamp(1.15rem, 1rem + 0.6vw, var(--text-xl)); }
+h3 { font-size: var(--text-lg); }
+
+p { overflow-wrap: break-word; }
+
+code, .mono { font-family: var(--font-mono); font-size: 0.88em; }
+
+a { color: var(--c-signal); text-decoration: none; transition: color var(--transition-fast); }
+a:hover { color: var(--c-primary-strong); text-decoration: underline; text-underline-offset: 3px; }
+
+img, svg, video, canvas { max-width: 100%; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* Foco visible siempre (accesibilidad) */
+:focus-visible {
+    outline: 2px solid var(--c-signal);
+    outline-offset: 2px;
+}
+
+::selection { background: var(--c-primary-soft); color: var(--text); }
+
+/* Controles nativos usados directamente en las vistas */
+input[type='checkbox'], input[type='radio'] {
+    accent-color: var(--c-primary);
+    width: 17px; height: 17px; cursor: pointer; flex-shrink: 0;
+}
+
+input[type='file'] {
+    width: 100%; max-width: 100%;
+    font-size: var(--text-sm); font-weight: 400; color: var(--text-muted);
+    padding: 10px; border: 1.5px dashed var(--border-strong); border-radius: var(--radius-md);
+    background: var(--bg-subtle); cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+input[type='file']:hover { border-color: var(--c-primary); background: var(--c-primary-soft); }
+input[type='file']::file-selector-button {
+    font-family: var(--font-body); font-weight: 600; font-size: var(--text-sm);
+    margin-right: 12px; padding: 8px 14px; border: none; border-radius: var(--radius-sm);
+    background: var(--c-primary); color: var(--on-primary); cursor: pointer;
+    transition: background var(--transition-fast);
+}
+input[type='file']::file-selector-button:hover { background: var(--c-primary-strong); }
+
+/* Estilo unificado para textareas sueltos de las vistas (formularios y comentarios) */
+textarea {
+    width: 100%;
+    min-height: 88px;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    padding: 10px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text);
+    resize: vertical;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+textarea:hover { border-color: var(--c-gray-400); }
+textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: var(--focus-ring); }
+textarea::placeholder, input::placeholder { color: var(--text-subtle); }
+
+/* Scrollbars discretas */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: var(--c-gray-400); }
+
+/* ---- Utilidades compartidas ---- */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 var(--space-5); }
+
+.visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap;
+}
+
+/* Estado de carga genérico con "esqueleto" pulsante */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-subtle) 0%, var(--surface-hover) 50%, var(--bg-subtle) 100%);
+    background-size: 200% 100%;
+    animation: skeleton 1.4s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+@keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* Entrada escalonada de tarjetas */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+}
+.aparecer { animation: aparecer 420ms var(--ease) both; }
+
+/* Accesibilidad: respetar preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}

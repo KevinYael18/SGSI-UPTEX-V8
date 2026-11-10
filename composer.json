@@ -1,0 +1,32 @@
+{
+    "name": "uptex/sgsi",
+    "type": "project",
+    "description": "SGSI UPTex - Manifiesto de referencia de dependencias. El build real ocurre en el Dockerfile via composer create-project + composer require (ver README.md, seccion 'Que hay en este repositorio').",
+    "require": {
+        "php": "^8.4",
+        "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
+        "darkaonline/l5-swagger": "^8.6",
+        "barryvdh/laravel-dompdf": "^3.0",
+        "simplesoftwareio/simple-qrcode": "^4.2"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "mockery/mockery": "^1.6",
+        "laravel/pint": "^1.17",
+        "nunomaduro/collision": "^8.0"
+    },
+    "autoload": {
+        "psr-4": { "App\\": "app/", "Database\\Factories\\": "database/factories/", "Database\\Seeders\\": "database/seeders/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
