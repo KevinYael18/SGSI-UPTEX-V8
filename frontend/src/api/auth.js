@@ -6,4 +6,5 @@ export default {
     me: () => http.get('/v1/me'),
     olvidePassword: (email) => http.post('/v1/olvide-password', { email }),
     restablecerPassword: (payload) => http.post('/v1/restablecer-password', payload),
+    validarTokenRecuperacion: (payload) => http.post('/v1/restablecer-password/validar', payload),
 };

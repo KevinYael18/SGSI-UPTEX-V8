@@ -107,7 +107,10 @@ onMounted(cargar);
 .resumen__etiqueta { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
 .resumen__valor { font-family: var(--font-display); font-size: 1.9rem; color: var(--c-success); line-height: 1.15; }
 .resumen__barra { flex: 1; min-width: 180px; height: 10px; border-radius: 999px; background: var(--bg-subtle); overflow: hidden; }
-.resumen__barra span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--c-primary), var(--c-lime)); transition: width 900ms var(--ease); }
+.resumen__barra span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--c-primary), var(--c-lime)); transition: width 900ms var(--ease);
+    /* Solo presentación: se llena desde 0 al aparecer (el ancho real no cambia). */
+    transform-origin: left center; animation: barra-llenar 1000ms var(--ease-salida, var(--ease)) 120ms backwards; }
+@keyframes barra-llenar { from { transform: scaleX(0); } }
 :deep(.app-table td .app-field) { min-width: 170px; }
 @media (max-width: 720px) { :deep(.app-table td .app-field) { min-width: 0; } }
 </style>

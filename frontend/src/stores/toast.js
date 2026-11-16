@@ -7,7 +7,8 @@ export const useToastStore = defineStore('toast', {
     actions: {
         mostrar(mensaje, tipo = 'info', duracionMs = 4000) {
             const id = ++contador;
-            this.items.push({ id, mensaje, tipo });
+            // `duracion` solo se usa para la barra visual de tiempo restante.
+            this.items.push({ id, mensaje, tipo, duracion: duracionMs });
             setTimeout(() => this.cerrar(id), duracionMs);
         },
         exito(mensaje) { this.mostrar(mensaje, 'exito'); },

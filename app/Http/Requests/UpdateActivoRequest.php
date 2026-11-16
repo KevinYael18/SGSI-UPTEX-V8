@@ -23,6 +23,13 @@ class UpdateActivoRequest extends FormRequest
             'disponibilidad' => ['sometimes', 'integer', 'between:1,5'],
             'ubicacion_id' => ['sometimes', 'nullable', 'exists:ubicaciones,id'],
             'responsable_id' => ['sometimes', 'nullable', 'exists:usuarios,id'],
+            // Ficha técnica dinámica (validación detallada en FichaTecnicaActivoService).
+            'subtipo' => ['sometimes', 'nullable', 'string', 'max:40'],
+            'tecnico' => ['sometimes', 'nullable', 'array'],
+            'personalizados' => ['sometimes', 'nullable', 'array', 'max:30'],
+            'personalizados.*.nombre' => ['nullable', 'string', 'max:60'],
+            'personalizados.*.valor' => ['nullable', 'string', 'max:255'],
+            'ubicacion_detalle' => ['sometimes', 'nullable', 'string', 'max:150'],
         ];
     }
 }

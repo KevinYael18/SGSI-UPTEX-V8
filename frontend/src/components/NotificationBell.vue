@@ -2,7 +2,7 @@
   <div ref="raiz" class="bell">
     <button class="bell__btn" :class="{ 'bell__btn--activo': abierto }" @click="alAbrir" aria-label="Notificaciones" :aria-expanded="abierto">
       <AppIcon name="campana" :size="20" />
-      <span v-if="store.noLeidas > 0" class="bell__contador">{{ store.noLeidas > 99 ? '99+' : store.noLeidas }}</span>
+      <span v-if="store.noLeidas > 0" :key="store.noLeidas" class="bell__contador">{{ store.noLeidas > 99 ? '99+' : store.noLeidas }}</span>
     </button>
     <Transition name="bell-panel">
       <div v-if="abierto" class="bell__panel">
@@ -111,6 +111,8 @@ onBeforeUnmount(() => document.removeEventListener('click', alClicFuera));
     position: absolute; top: 4px; right: 3px; min-width: 18px; height: 18px; display: grid; place-items: center;
     background: var(--c-risk-solid); color: #fff; border-radius: 999px; border: 2px solid var(--surface);
     font-size: 0.62rem; padding: 0 4px; font-weight: 700; line-height: 1;
+    /* Solo presentación: "pop" cada vez que cambia el número de no leídas. */
+    animation: pop 380ms var(--ease-resorte, var(--ease)) backwards;
 }
 .bell__panel {
     position: absolute; right: 0; top: calc(100% + 10px); width: 360px; background: var(--surface-raised);

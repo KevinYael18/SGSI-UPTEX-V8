@@ -32,7 +32,7 @@ class AccionCorrectivaController extends Controller
             $query->where('fecha_compromiso', '<', now())->whereNotIn('estado', ['cerrada']);
         }
 
-        $acciones = $query->orderBy('fecha_compromiso')->paginate((int) $request->integer('por_pagina', 15));
+        $acciones = $query->orderBy('fecha_compromiso')->paginate(\App\Support\Paginacion::porPagina($request, 15));
 
         return response()->json([
             'data' => collect($acciones->items())->map(fn ($a) => [

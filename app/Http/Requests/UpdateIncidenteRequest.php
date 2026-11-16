@@ -17,7 +17,7 @@ class UpdateIncidenteRequest extends FormRequest
     {
         return [
             'titulo' => ['sometimes', 'string', 'max:150'],
-            'descripcion' => ['sometimes', 'nullable', 'string'],
+            'descripcion' => ['sometimes', 'nullable', 'string', 'max:10000'],
             'activo_id' => ['sometimes', 'nullable', 'exists:activos,id'],
         ];
     }

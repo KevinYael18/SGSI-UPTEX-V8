@@ -41,6 +41,16 @@
           <p v-else>Este tipo de archivo no tiene vista previa. Usa “Descargar”.</p>
         </div>
         <p class="visor__hash">SHA-256: <span class="mono">{{ actual.hash_sha256 }}</span></p>
+        <div class="visor__integridad">
+          <AppButton tamano="sm" variante="secundaria" icono="escudo" :cargando="verificando" @click="verificar">Verificar integridad</AppButton>
+          <Transition name="aviso">
+            <p v-if="verificacion" class="visor__resultado" :class="verificacion.integra ? 'visor__resultado--ok' : 'visor__resultado--mal'" role="status">
+              <template v-if="verificacion.integra">Íntegra: el archivo almacenado coincide con la huella SHA-256 registrada.</template>
+              <template v-else-if="!verificacion.archivo_disponible">El archivo ya no está disponible en el almacenamiento.</template>
+              <template v-else>¡Atención! El archivo NO coincide con la huella registrada (posible alteración).</template>
+            </p>
+          </Transition>
+        </div>
       </template>
       <template #footer>
         <AppButton variante="secundaria" @click="actual = null">Cerrar</AppButton>
@@ -90,7 +100,26 @@ function tamano(bytes) {
 
 function abrir(ev) {
     fallo.value = false;
+    verificacion.value = null;
     actual.value = ev;
+}
+
+// Recalcula en el servidor el SHA-256 del archivo almacenado y lo compara con
+// el registrado al subirlo (cadena de custodia de la evidencia).
+const verificando = ref(false);
+const verificacion = ref(null);
+async function verificar() {
+    verificando.value = true;
+    verificacion.value = null;
+    try {
+        const ruta = actual.value.url_descarga.replace(/\/descargar$/, '/verificar');
+        const { data } = await http.get(ruta);
+        verificacion.value = data.data;
+    } catch (e) {
+        verificacion.value = { integra: false, archivo_disponible: false };
+    } finally {
+        verificando.value = false;
+    }
 }
 </script>
 
@@ -132,6 +161,10 @@ function abrir(ev) {
 .visor__faltante :deep(svg) { color: var(--c-warning, #b7791f); }
 .visor__faltante p { margin: 0; max-width: 520px; }
 .visor__faltante strong { color: var(--text); }
+.visor__integridad { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: var(--space-3); }
+.visor__resultado { margin: 0; padding: 8px 12px; border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 500; }
+.visor__resultado--ok { background: var(--c-success-soft); color: var(--c-success); }
+.visor__resultado--mal { background: var(--c-risk-soft); color: var(--c-risk); }
 .visor__hash { margin: var(--space-3) 0 0; font-size: var(--text-xs); color: var(--text-muted); word-break: break-all; }
 .visor__accion {
     display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius-md);

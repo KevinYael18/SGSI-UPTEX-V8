@@ -1,0 +1,2923 @@
+{
+    "tipos": [
+        {
+            "clave": "computadora",
+            "etiqueta": "Computadora",
+            "categoria": "hardware",
+            "plantilla": "computo",
+            "palabras": {
+                "computadora": 3,
+                "computador": 3,
+                "pc": 3,
+                "desktop": 3,
+                "equipo de computo": 3.5,
+                "cpu": 2.5,
+                "all in one": 3,
+                "workstation": 3,
+                "estacion de trabajo": 3,
+                "optiplex": 2.5,
+                "thinkcentre": 2.5,
+                "prodesk": 2.5,
+                "elitedesk": 2.5,
+                "imac": 2.5,
+                "vostro": 2,
+                "mac mini": 3
+            },
+            "usa_ficha_computo": true,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.5.10",
+                "A.5.11",
+                "A.7.8",
+                "A.7.13",
+                "A.8.1",
+                "A.8.7",
+                "A.8.8",
+                "A.8.9",
+                "A.8.19"
+            ]
+        },
+        {
+            "clave": "laptop",
+            "etiqueta": "Laptop",
+            "categoria": "hardware",
+            "plantilla": "computo",
+            "palabras": {
+                "laptop": 4,
+                "notebook": 4,
+                "portatil": 4,
+                "computadora portatil": 4.5,
+                "macbook": 4,
+                "chromebook": 4,
+                "probook": 3.5,
+                "elitebook": 3.5,
+                "thinkpad": 3.5,
+                "latitude": 3.5,
+                "ideapad": 3.5,
+                "pavilion": 2.5,
+                "inspiron": 2.5,
+                "zenbook": 3.5,
+                "vivobook": 3.5,
+                "aspire": 2
+            },
+            "usa_ficha_computo": true,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.5.10",
+                "A.5.11",
+                "A.7.8",
+                "A.7.13",
+                "A.8.1",
+                "A.8.7",
+                "A.8.8",
+                "A.8.9",
+                "A.8.19"
+            ]
+        },
+        {
+            "clave": "servidor",
+            "etiqueta": "Servidor",
+            "categoria": "hardware",
+            "plantilla": "servidor",
+            "palabras": {
+                "servidor": 4,
+                "server": 4,
+                "poweredge": 4,
+                "proliant": 4,
+                "rack": 2,
+                "blade": 2.5,
+                "nas": 3,
+                "san": 2,
+                "synology": 3,
+                "qnap": 3,
+                "hipervisor": 3
+            },
+            "usa_ficha_computo": true,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.7",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "camara",
+            "etiqueta": "Cámara de videovigilancia",
+            "categoria": "hardware",
+            "plantilla": "camara",
+            "palabras": {
+                "camara": 3,
+                "cctv": 4,
+                "videovigilancia": 4,
+                "camara ip": 4,
+                "hikvision": 3,
+                "dahua": 3,
+                "axis": 2,
+                "domo": 2.5,
+                "ptz": 3,
+                "webcam": 2
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "grabador_video",
+            "etiqueta": "Grabador de video (DVR\/NVR)",
+            "categoria": "hardware",
+            "plantilla": "red",
+            "palabras": {
+                "dvr": 4,
+                "nvr": 4,
+                "grabador": 3.5,
+                "videograbador": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "impresora",
+            "etiqueta": "Impresora",
+            "categoria": "hardware",
+            "plantilla": "impresora",
+            "palabras": {
+                "impresora": 3,
+                "printer": 3,
+                "multifuncional": 3.5,
+                "laserjet": 3,
+                "deskjet": 3,
+                "officejet": 3,
+                "ecotank": 3,
+                "plotter": 3.5,
+                "escaner": 2.5,
+                "xerox": 2.5,
+                "brother": 2,
+                "kyocera": 2.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "impresora_3d",
+            "etiqueta": "Impresora 3D",
+            "categoria": "hardware",
+            "plantilla": "impresora_3d",
+            "palabras": {
+                "impresora 3d": 5,
+                "3d printer": 5,
+                "creality": 4,
+                "ender": 3.5,
+                "prusa": 4,
+                "ultimaker": 4,
+                "bambu": 4,
+                "anycubic": 4,
+                "elegoo": 3.5,
+                "formlabs": 4,
+                "resina": 2
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "switch",
+            "etiqueta": "Switch de red",
+            "categoria": "hardware",
+            "plantilla": "red",
+            "palabras": {
+                "switch": 4,
+                "conmutador": 3,
+                "catalyst": 3.5,
+                "switch poe": 4.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "router",
+            "etiqueta": "Router",
+            "categoria": "hardware",
+            "plantilla": "red",
+            "palabras": {
+                "router": 4,
+                "ruteador": 4,
+                "enrutador": 4,
+                "mikrotik": 3,
+                "modem": 3,
+                "gateway": 2.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "punto_acceso",
+            "etiqueta": "Punto de acceso inalámbrico",
+            "categoria": "hardware",
+            "plantilla": "red",
+            "palabras": {
+                "access point": 4.5,
+                "punto de acceso": 4.5,
+                "ap": 2,
+                "unifi": 3,
+                "aruba": 3,
+                "antena": 2.5,
+                "repetidor": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "firewall",
+            "etiqueta": "Firewall",
+            "categoria": "hardware",
+            "plantilla": "red",
+            "palabras": {
+                "firewall": 4,
+                "fortigate": 4,
+                "sonicwall": 4,
+                "pfsense": 3.5,
+                "cortafuegos": 4,
+                "utm": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "plc",
+            "etiqueta": "Controlador industrial (PLC)",
+            "categoria": "hardware",
+            "plantilla": "industrial",
+            "palabras": {
+                "plc": 4,
+                "controlador logico": 4.5,
+                "controlador industrial": 4.5,
+                "s7": 2.5,
+                "simatic": 3.5,
+                "allen bradley": 3.5,
+                "controllogix": 3.5,
+                "micrologix": 3.5,
+                "logo": 1.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "cnc",
+            "etiqueta": "Maquinaria CNC",
+            "categoria": "hardware",
+            "plantilla": "industrial",
+            "palabras": {
+                "cnc": 4.5,
+                "torno": 3,
+                "fresadora": 3.5,
+                "router cnc": 5,
+                "cortadora laser": 3.5,
+                "centro de maquinado": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "robot",
+            "etiqueta": "Brazo robótico \/ robot industrial",
+            "categoria": "hardware",
+            "plantilla": "industrial",
+            "palabras": {
+                "brazo robotico": 5,
+                "robot": 3.5,
+                "robotico": 3,
+                "kuka": 3.5,
+                "fanuc": 3.5,
+                "manipulador": 3,
+                "cobot": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "automatizacion",
+            "etiqueta": "Equipo de automatización",
+            "categoria": "hardware",
+            "plantilla": "industrial",
+            "palabras": {
+                "automatizacion": 3.5,
+                "variador": 3.5,
+                "servomotor": 3.5,
+                "hmi": 3.5,
+                "banda transportadora": 3.5,
+                "neumatica": 3,
+                "modulo de entradas": 3,
+                "sensor": 3,
+                "sensor industrial": 4,
+                "actuador": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13",
+                "A.8.8",
+                "A.8.9"
+            ]
+        },
+        {
+            "clave": "instrumento_laboratorio",
+            "etiqueta": "Instrumento de laboratorio",
+            "categoria": "hardware",
+            "plantilla": "instrumento",
+            "palabras": {
+                "osciloscopio": 4.5,
+                "fuente de alimentacion": 4.5,
+                "fuente de poder": 3.5,
+                "multimetro": 4.5,
+                "generador de funciones": 4.5,
+                "estacion de soldadura": 4.5,
+                "cautin": 4,
+                "analizador": 3,
+                "protoboard": 2.5,
+                "microscopio": 3.5,
+                "balanza": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "climatizacion",
+            "etiqueta": "Equipo de climatización",
+            "categoria": "hardware",
+            "plantilla": "climatizacion",
+            "palabras": {
+                "aire acondicionado": 5,
+                "minisplit": 4.5,
+                "mini split": 4.5,
+                "clima": 2.5,
+                "climatizacion": 4,
+                "enfriador": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "proyector",
+            "etiqueta": "Proyector",
+            "categoria": "hardware",
+            "plantilla": "proyector",
+            "palabras": {
+                "proyector": 4.5,
+                "videoproyector": 4.5,
+                "canon proyector": 4,
+                "powerlite": 3.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "pantalla",
+            "etiqueta": "Pantalla \/ monitor",
+            "categoria": "hardware",
+            "plantilla": "pantalla",
+            "palabras": {
+                "pantalla": 3,
+                "monitor": 3,
+                "television": 3,
+                "tv": 2.5,
+                "smart tv": 3.5,
+                "pizarron interactivo": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "audiovisual",
+            "etiqueta": "Equipo audiovisual",
+            "categoria": "hardware",
+            "plantilla": "general",
+            "palabras": {
+                "bocina": 3.5,
+                "microfono": 3.5,
+                "consola de audio": 4,
+                "equipo de sonido": 4,
+                "amplificador": 3.5,
+                "videoconferencia": 3.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "electrico",
+            "etiqueta": "Equipo eléctrico",
+            "categoria": "hardware",
+            "plantilla": "general",
+            "palabras": {
+                "ups": 4,
+                "no break": 4,
+                "nobreak": 4,
+                "regulador": 3.5,
+                "planta de luz": 4,
+                "planta electrica": 4,
+                "tablero electrico": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.7.8",
+                "A.7.13"
+            ]
+        },
+        {
+            "clave": "sistema_operativo",
+            "etiqueta": "Sistema operativo",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "windows": 4,
+                "ubuntu": 4,
+                "linux": 4,
+                "macos": 4,
+                "debian": 4,
+                "red hat": 4,
+                "centos": 4,
+                "fedora": 4,
+                "android": 3,
+                "sistema operativo": 5,
+                "windows server": 5,
+                "rocky linux": 4.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "antivirus",
+            "etiqueta": "Antivirus",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "antivirus": 5,
+                "eset": 4,
+                "nod32": 4,
+                "kaspersky": 4,
+                "norton": 4,
+                "mcafee": 4,
+                "avast": 4,
+                "bitdefender": 4,
+                "defender": 3.5,
+                "sophos": 4,
+                "malwarebytes": 4,
+                "antimalware": 4.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "productividad",
+            "etiqueta": "Software de productividad",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "office": 4,
+                "microsoft 365": 4.5,
+                "excel": 3.5,
+                "word": 3,
+                "powerpoint": 3.5,
+                "libreoffice": 4,
+                "google workspace": 4,
+                "acrobat": 3.5,
+                "teams": 3,
+                "outlook": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "desarrollo",
+            "etiqueta": "Software de desarrollo",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "visual studio": 4,
+                "vs code": 4,
+                "visual studio code": 4.5,
+                "xampp": 4,
+                "python": 3.5,
+                "java": 3,
+                "jdk": 3.5,
+                "node": 3,
+                "nodejs": 3.5,
+                "git": 3,
+                "android studio": 4.5,
+                "netbeans": 4,
+                "eclipse": 3.5,
+                "intellij": 4,
+                "pycharm": 4,
+                "postman": 3.5,
+                "php": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "base_datos",
+            "etiqueta": "Sistema de base de datos",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "mysql": 4,
+                "postgresql": 4,
+                "postgres": 4,
+                "sql server": 4.5,
+                "oracle database": 4.5,
+                "mariadb": 4,
+                "mongodb": 4,
+                "sqlite": 3.5,
+                "workbench": 2.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "academico",
+            "etiqueta": "Software académico",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "moodle": 4,
+                "minitab": 4,
+                "spss": 4,
+                "geogebra": 4,
+                "mathematica": 4,
+                "software academico": 5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "administrativo",
+            "etiqueta": "Software administrativo",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "contpaq": 4,
+                "contpaqi": 4,
+                "aspel": 4,
+                "nomina": 3,
+                "erp": 3.5,
+                "sistema escolar": 4,
+                "control escolar": 4,
+                "facturacion": 3.5,
+                "sap": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "diseno",
+            "etiqueta": "Software de diseño",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "autocad": 4,
+                "solidworks": 4,
+                "photoshop": 4,
+                "illustrator": 4,
+                "coreldraw": 4,
+                "sketchup": 4,
+                "blender": 4,
+                "fusion 360": 4,
+                "inventor": 3,
+                "revit": 4,
+                "adobe": 2.5,
+                "cura": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "virtualizacion",
+            "etiqueta": "Software de virtualización",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "vmware": 4,
+                "virtualbox": 4,
+                "hyper-v": 4,
+                "hyper v": 4,
+                "proxmox": 4,
+                "docker": 4,
+                "esxi": 4
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "seguridad",
+            "etiqueta": "Software de seguridad",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "vpn": 3.5,
+                "wireshark": 4,
+                "nmap": 4,
+                "kali": 4,
+                "burp": 4,
+                "gestor de contrasenas": 4.5,
+                "keepass": 4,
+                "firewall de software": 4.5,
+                "cifrado": 3
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        },
+        {
+            "clave": "laboratorio",
+            "etiqueta": "Software especializado de laboratorio",
+            "categoria": "software",
+            "plantilla": "software",
+            "palabras": {
+                "labview": 4.5,
+                "multisim": 4.5,
+                "proteus": 4.5,
+                "tia portal": 4.5,
+                "step 7": 4,
+                "rslogix": 4.5,
+                "matlab": 4,
+                "simulink": 4,
+                "arduino": 3.5,
+                "factory io": 4.5,
+                "codesys": 4.5,
+                "mastercam": 4.5
+            },
+            "usa_ficha_computo": false,
+            "controles_sugeridos": [
+                "A.5.9",
+                "A.8.19",
+                "A.8.8"
+            ]
+        }
+    ],
+    "plantillas": {
+        "computo": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true,
+                        "destino": "ficha"
+                    }
+                ]
+            },
+            {
+                "titulo": "Equipo",
+                "campos": [
+                    {
+                        "clave": "hostname",
+                        "etiqueta": "Nombre del equipo (hostname)",
+                        "tipo": "texto",
+                        "max": 100,
+                        "destino": "ficha"
+                    }
+                ]
+            },
+            {
+                "titulo": "Características técnicas",
+                "campos": [
+                    {
+                        "clave": "procesador",
+                        "etiqueta": "Procesador",
+                        "tipo": "texto",
+                        "max": 150,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "generacion_procesador",
+                        "etiqueta": "Generación del procesador",
+                        "tipo": "texto",
+                        "max": 40
+                    },
+                    {
+                        "clave": "ram_gb",
+                        "etiqueta": "Memoria RAM (GB)",
+                        "tipo": "entero",
+                        "min": 1,
+                        "maxv": 4096,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "tipo_ram",
+                        "etiqueta": "Tipo de memoria RAM",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "ddr3",
+                                "label": "DDR3"
+                            },
+                            {
+                                "value": "ddr4",
+                                "label": "DDR4"
+                            },
+                            {
+                                "value": "ddr5",
+                                "label": "DDR5"
+                            },
+                            {
+                                "value": "lpddr",
+                                "label": "LPDDR"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "almacenamiento_gb",
+                        "etiqueta": "Capacidad de almacenamiento (GB)",
+                        "tipo": "entero",
+                        "min": 1,
+                        "maxv": 1048576,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "tipo_almacenamiento",
+                        "etiqueta": "Tipo de almacenamiento",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "hdd",
+                                "label": "HDD"
+                            },
+                            {
+                                "value": "ssd",
+                                "label": "SSD"
+                            },
+                            {
+                                "value": "nvme",
+                                "label": "SSD NVMe"
+                            },
+                            {
+                                "value": "hibrido",
+                                "label": "Híbrido"
+                            },
+                            {
+                                "value": "otro",
+                                "label": "Otro"
+                            }
+                        ],
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "tarjeta_grafica",
+                        "etiqueta": "Tarjeta gráfica",
+                        "tipo": "texto",
+                        "max": 150,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "so_nombre",
+                        "etiqueta": "Sistema operativo",
+                        "tipo": "texto",
+                        "max": 80,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "so_version",
+                        "etiqueta": "Versión del sistema operativo",
+                        "tipo": "texto",
+                        "max": 60,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "so_arquitectura",
+                        "etiqueta": "Arquitectura",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "x64",
+                                "label": "64 bits (x64)"
+                            },
+                            {
+                                "value": "x86",
+                                "label": "32 bits (x86)"
+                            },
+                            {
+                                "value": "arm64",
+                                "label": "ARM64"
+                            }
+                        ],
+                        "destino": "ficha"
+                    }
+                ]
+            },
+            {
+                "titulo": "Red",
+                "campos": [
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip",
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "direccion_mac",
+                        "etiqueta": "Dirección MAC",
+                        "tipo": "mac",
+                        "destino": "ficha",
+                        "unico": true
+                    },
+                    {
+                        "clave": "conexion_red",
+                        "etiqueta": "Conexión",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "ethernet",
+                                "label": "Ethernet"
+                            },
+                            {
+                                "value": "wifi",
+                                "label": "Wi-Fi"
+                            },
+                            {
+                                "value": "ambas",
+                                "label": "Ethernet y Wi-Fi"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "dominio_red",
+                        "etiqueta": "Nombre de red o dominio",
+                        "tipo": "texto",
+                        "max": 120
+                    }
+                ]
+            },
+            {
+                "titulo": "Seguridad",
+                "campos": [
+                    {
+                        "clave": "antivirus_nombre",
+                        "etiqueta": "Antivirus instalado",
+                        "tipo": "texto",
+                        "max": 100,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "antivirus_version",
+                        "etiqueta": "Versión del antivirus",
+                        "tipo": "texto",
+                        "max": 60,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "antivirus_proteccion",
+                        "etiqueta": "Estado de protección",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "activa",
+                                "label": "Protección activa"
+                            },
+                            {
+                                "value": "inactiva",
+                                "label": "Protección inactiva"
+                            },
+                            {
+                                "value": "desconocido",
+                                "label": "Desconocido"
+                            }
+                        ],
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "estado_actualizacion_antivirus",
+                        "etiqueta": "Estado de actualización",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "al_dia",
+                                "label": "Al día"
+                            },
+                            {
+                                "value": "pendiente",
+                                "label": "Pendiente"
+                            },
+                            {
+                                "value": "desconocido",
+                                "label": "Desconocido"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "antivirus_ultima_actualizacion",
+                        "etiqueta": "Fecha de última revisión",
+                        "tipo": "fecha",
+                        "destino": "ficha"
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ],
+                        "destino": "ficha"
+                    }
+                ]
+            }
+        ],
+        "servidor": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true,
+                        "destino": "ficha"
+                    }
+                ]
+            },
+            {
+                "titulo": "Configuración",
+                "campos": [
+                    {
+                        "clave": "hostname",
+                        "etiqueta": "Hostname",
+                        "tipo": "texto",
+                        "max": 100,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "procesador",
+                        "etiqueta": "Procesador",
+                        "tipo": "texto",
+                        "max": 150,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "ram_gb",
+                        "etiqueta": "Memoria RAM (GB)",
+                        "tipo": "entero",
+                        "min": 1,
+                        "maxv": 65536,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "almacenamiento_gb",
+                        "etiqueta": "Capacidad de almacenamiento (GB)",
+                        "tipo": "entero",
+                        "min": 1,
+                        "maxv": 10485760,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "raid",
+                        "etiqueta": "Configuración RAID",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "ninguno",
+                                "label": "Sin RAID"
+                            },
+                            {
+                                "value": "raid0",
+                                "label": "RAID 0"
+                            },
+                            {
+                                "value": "raid1",
+                                "label": "RAID 1"
+                            },
+                            {
+                                "value": "raid5",
+                                "label": "RAID 5"
+                            },
+                            {
+                                "value": "raid6",
+                                "label": "RAID 6"
+                            },
+                            {
+                                "value": "raid10",
+                                "label": "RAID 10"
+                            },
+                            {
+                                "value": "otro",
+                                "label": "Otro"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "so_nombre",
+                        "etiqueta": "Sistema operativo",
+                        "tipo": "texto",
+                        "max": 80,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "so_version",
+                        "etiqueta": "Versión",
+                        "tipo": "texto",
+                        "max": 60,
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "virtualizacion",
+                        "etiqueta": "Virtualización",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "ninguna",
+                                "label": "Servidor físico sin virtualización"
+                            },
+                            {
+                                "value": "anfitrion",
+                                "label": "Anfitrión de máquinas virtuales"
+                            },
+                            {
+                                "value": "virtual",
+                                "label": "Es una máquina virtual"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "plataforma_virtualizacion",
+                        "etiqueta": "Plataforma de virtualización",
+                        "tipo": "texto",
+                        "max": 80,
+                        "mostrar_si": {
+                            "virtualizacion": [
+                                "anfitrion",
+                                "virtual"
+                            ]
+                        }
+                    },
+                    {
+                        "clave": "servicios_alojados",
+                        "etiqueta": "Servicios alojados",
+                        "tipo": "textarea",
+                        "max": 1000,
+                        "ayuda": "Ej. sitio web institucional, base de datos de control escolar…"
+                    }
+                ]
+            },
+            {
+                "titulo": "Red",
+                "campos": [
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip",
+                        "destino": "ficha"
+                    },
+                    {
+                        "clave": "direccion_mac",
+                        "etiqueta": "Dirección MAC",
+                        "tipo": "mac",
+                        "destino": "ficha",
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ],
+                        "destino": "ficha"
+                    }
+                ]
+            }
+        ],
+        "camara": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tipo_camara",
+                        "etiqueta": "Tipo de cámara",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "domo",
+                                "label": "Domo"
+                            },
+                            {
+                                "value": "bala",
+                                "label": "Bala (bullet)"
+                            },
+                            {
+                                "value": "ptz",
+                                "label": "PTZ (motorizada)"
+                            },
+                            {
+                                "value": "fisheye",
+                                "label": "Ojo de pez (360°)"
+                            },
+                            {
+                                "value": "oculta",
+                                "label": "Oculta \/ mini"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "resolucion",
+                        "etiqueta": "Resolución",
+                        "tipo": "texto",
+                        "max": 40,
+                        "ayuda": "Ej. 4 MP, 1080p"
+                    },
+                    {
+                        "clave": "firmware",
+                        "etiqueta": "Firmware",
+                        "tipo": "texto",
+                        "max": 60
+                    },
+                    {
+                        "clave": "grabador_asociado",
+                        "etiqueta": "Grabador asociado (DVR\/NVR)",
+                        "tipo": "texto",
+                        "max": 120
+                    }
+                ]
+            },
+            {
+                "titulo": "Red",
+                "campos": [
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip"
+                    },
+                    {
+                        "clave": "direccion_mac",
+                        "etiqueta": "Dirección MAC",
+                        "tipo": "mac",
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "impresora": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tipo_impresora",
+                        "etiqueta": "Tipo de impresora",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "personal",
+                                "label": "Personal"
+                            },
+                            {
+                                "value": "departamental",
+                                "label": "Departamental"
+                            },
+                            {
+                                "value": "multifuncional",
+                                "label": "Multifuncional"
+                            },
+                            {
+                                "value": "plotter",
+                                "label": "Plotter \/ gran formato"
+                            },
+                            {
+                                "value": "etiquetas",
+                                "label": "Etiquetas \/ tickets"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "tecnologia_impresion",
+                        "etiqueta": "Tecnología de impresión",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "laser",
+                                "label": "Láser"
+                            },
+                            {
+                                "value": "inyeccion",
+                                "label": "Inyección de tinta"
+                            },
+                            {
+                                "value": "tanque",
+                                "label": "Tanque de tinta"
+                            },
+                            {
+                                "value": "termica",
+                                "label": "Térmica"
+                            },
+                            {
+                                "value": "matricial",
+                                "label": "Matricial"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "conectividad",
+                        "etiqueta": "Conectividad",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "sin_red",
+                                "label": "Sin conexión de red"
+                            },
+                            {
+                                "value": "ethernet",
+                                "label": "Ethernet (cable)"
+                            },
+                            {
+                                "value": "wifi",
+                                "label": "Wi-Fi"
+                            },
+                            {
+                                "value": "usb",
+                                "label": "USB"
+                            },
+                            {
+                                "value": "serial",
+                                "label": "Serial (RS-232\/485)"
+                            },
+                            {
+                                "value": "bus_campo",
+                                "label": "Bus de campo (Profibus, Modbus RTU…)"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "titulo": "Red",
+                "campos": [
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip",
+                        "mostrar_si": {
+                            "conectividad": [
+                                "ethernet",
+                                "wifi"
+                            ]
+                        }
+                    },
+                    {
+                        "clave": "direccion_mac",
+                        "etiqueta": "Dirección MAC",
+                        "tipo": "mac",
+                        "unico": true,
+                        "mostrar_si": {
+                            "conectividad": [
+                                "ethernet",
+                                "wifi"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "impresora_3d": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tecnologia_impresion",
+                        "etiqueta": "Tecnología de impresión",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "fdm",
+                                "label": "FDM (filamento)"
+                            },
+                            {
+                                "value": "sla",
+                                "label": "SLA (resina)"
+                            },
+                            {
+                                "value": "dlp",
+                                "label": "DLP"
+                            },
+                            {
+                                "value": "sls",
+                                "label": "SLS (polvo)"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "volumen_impresion",
+                        "etiqueta": "Volumen de impresión",
+                        "tipo": "texto",
+                        "max": 60,
+                        "ayuda": "Ej. 220 × 220 × 250 mm"
+                    },
+                    {
+                        "clave": "materiales",
+                        "etiqueta": "Materiales compatibles",
+                        "tipo": "texto",
+                        "max": 200,
+                        "ayuda": "Ej. PLA, PETG, ABS"
+                    },
+                    {
+                        "clave": "firmware",
+                        "etiqueta": "Firmware",
+                        "tipo": "texto",
+                        "max": 60
+                    },
+                    {
+                        "clave": "conectividad",
+                        "etiqueta": "Conectividad",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "sin_red",
+                                "label": "Sin conexión de red"
+                            },
+                            {
+                                "value": "ethernet",
+                                "label": "Ethernet (cable)"
+                            },
+                            {
+                                "value": "wifi",
+                                "label": "Wi-Fi"
+                            },
+                            {
+                                "value": "usb",
+                                "label": "USB"
+                            },
+                            {
+                                "value": "serial",
+                                "label": "Serial (RS-232\/485)"
+                            },
+                            {
+                                "value": "bus_campo",
+                                "label": "Bus de campo (Profibus, Modbus RTU…)"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip",
+                        "mostrar_si": {
+                            "conectividad": [
+                                "ethernet",
+                                "wifi"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "red": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Configuración de red",
+                "campos": [
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP de administración",
+                        "tipo": "ip"
+                    },
+                    {
+                        "clave": "direccion_mac",
+                        "etiqueta": "Dirección MAC",
+                        "tipo": "mac",
+                        "unico": true
+                    },
+                    {
+                        "clave": "firmware",
+                        "etiqueta": "Firmware",
+                        "tipo": "texto",
+                        "max": 60
+                    },
+                    {
+                        "clave": "numero_puertos",
+                        "etiqueta": "Número de puertos",
+                        "tipo": "entero",
+                        "min": 0,
+                        "maxv": 1024
+                    },
+                    {
+                        "clave": "velocidad_puertos",
+                        "etiqueta": "Velocidad de puertos",
+                        "tipo": "texto",
+                        "max": 40,
+                        "ayuda": "Ej. 1 Gbps, 10 Gbps SFP+"
+                    },
+                    {
+                        "clave": "vlan_segmento",
+                        "etiqueta": "VLAN o segmento de red",
+                        "tipo": "texto",
+                        "max": 80
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "industrial": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tipo_equipo",
+                        "etiqueta": "Tipo de equipo",
+                        "tipo": "texto",
+                        "max": 80,
+                        "ayuda": "Se propone según el nombre; puedes precisarlo."
+                    },
+                    {
+                        "clave": "firmware",
+                        "etiqueta": "Firmware \/ versión del software",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "interfaz_comunicacion",
+                        "etiqueta": "Interfaz de comunicación",
+                        "tipo": "texto",
+                        "max": 100,
+                        "ayuda": "Ej. Ethernet, RS-485, USB"
+                    },
+                    {
+                        "clave": "protocolos",
+                        "etiqueta": "Protocolos de comunicación",
+                        "tipo": "texto",
+                        "max": 150,
+                        "ayuda": "Ej. Modbus TCP, Profinet, EtherNet\/IP"
+                    },
+                    {
+                        "clave": "conectividad",
+                        "etiqueta": "Conectividad",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "sin_red",
+                                "label": "Sin conexión de red"
+                            },
+                            {
+                                "value": "ethernet",
+                                "label": "Ethernet (cable)"
+                            },
+                            {
+                                "value": "wifi",
+                                "label": "Wi-Fi"
+                            },
+                            {
+                                "value": "usb",
+                                "label": "USB"
+                            },
+                            {
+                                "value": "serial",
+                                "label": "Serial (RS-232\/485)"
+                            },
+                            {
+                                "value": "bus_campo",
+                                "label": "Bus de campo (Profibus, Modbus RTU…)"
+                            },
+                            {
+                                "value": "otra",
+                                "label": "Otra"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "direccion_ip",
+                        "etiqueta": "Dirección IP",
+                        "tipo": "ip",
+                        "mostrar_si": {
+                            "conectividad": [
+                                "ethernet",
+                                "wifi"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "instrumento": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tipo_equipo",
+                        "etiqueta": "Tipo de equipo",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "especificaciones",
+                        "etiqueta": "Especificaciones principales",
+                        "tipo": "textarea",
+                        "max": 500,
+                        "ayuda": "Ej. ancho de banda, rangos, potencia"
+                    },
+                    {
+                        "clave": "fecha_calibracion",
+                        "etiqueta": "Última calibración",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proxima_calibracion",
+                        "etiqueta": "Próxima calibración",
+                        "tipo": "fecha",
+                        "futura": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "climatizacion": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tipo_equipo",
+                        "etiqueta": "Tipo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "minisplit",
+                                "label": "Minisplit"
+                            },
+                            {
+                                "value": "ventana",
+                                "label": "De ventana"
+                            },
+                            {
+                                "value": "central",
+                                "label": "Central"
+                            },
+                            {
+                                "value": "precision",
+                                "label": "Precisión (centro de datos)"
+                            },
+                            {
+                                "value": "portatil",
+                                "label": "Portátil"
+                            },
+                            {
+                                "value": "otro",
+                                "label": "Otro"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "capacidad",
+                        "etiqueta": "Capacidad",
+                        "tipo": "texto",
+                        "max": 40,
+                        "ayuda": "Ej. 12 000 BTU, 1 tonelada"
+                    },
+                    {
+                        "clave": "area_atendida",
+                        "etiqueta": "Área que climatiza",
+                        "tipo": "texto",
+                        "max": 120
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "proyector": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "resolucion",
+                        "etiqueta": "Resolución",
+                        "tipo": "texto",
+                        "max": 40
+                    },
+                    {
+                        "clave": "lumenes",
+                        "etiqueta": "Luminosidad (lúmenes)",
+                        "tipo": "entero",
+                        "min": 0,
+                        "maxv": 100000
+                    },
+                    {
+                        "clave": "horas_lampara",
+                        "etiqueta": "Horas de uso de la lámpara",
+                        "tipo": "entero",
+                        "min": 0,
+                        "maxv": 200000
+                    },
+                    {
+                        "clave": "entradas",
+                        "etiqueta": "Entradas de video",
+                        "tipo": "texto",
+                        "max": 120,
+                        "ayuda": "Ej. HDMI, VGA"
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "pantalla": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "tamano_pulgadas",
+                        "etiqueta": "Tamaño (pulgadas)",
+                        "tipo": "numero",
+                        "min": 1,
+                        "maxv": 500
+                    },
+                    {
+                        "clave": "resolucion",
+                        "etiqueta": "Resolución",
+                        "tipo": "texto",
+                        "max": 40
+                    },
+                    {
+                        "clave": "entradas",
+                        "etiqueta": "Entradas de video",
+                        "tipo": "texto",
+                        "max": 120
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "general": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "marca",
+                        "etiqueta": "Marca",
+                        "tipo": "texto",
+                        "max": 80
+                    },
+                    {
+                        "clave": "modelo",
+                        "etiqueta": "Modelo",
+                        "tipo": "texto",
+                        "max": 100
+                    },
+                    {
+                        "clave": "numero_serie",
+                        "etiqueta": "Número de serie",
+                        "tipo": "texto",
+                        "max": 100,
+                        "unico": true
+                    },
+                    {
+                        "clave": "numero_inventario",
+                        "etiqueta": "No. de inventario institucional",
+                        "tipo": "texto",
+                        "max": 60,
+                        "unico": true
+                    }
+                ]
+            },
+            {
+                "titulo": "Características",
+                "campos": [
+                    {
+                        "clave": "descripcion_tecnica",
+                        "etiqueta": "Descripción técnica",
+                        "tipo": "textarea",
+                        "max": 1000
+                    }
+                ]
+            },
+            {
+                "titulo": "Estado y mantenimiento",
+                "campos": [
+                    {
+                        "clave": "estado_operativo",
+                        "etiqueta": "Estado operativo",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "operativo",
+                                "label": "Operativo"
+                            },
+                            {
+                                "value": "mantenimiento",
+                                "label": "En mantenimiento"
+                            },
+                            {
+                                "value": "fuera_servicio",
+                                "label": "Fuera de servicio"
+                            },
+                            {
+                                "value": "baja",
+                                "label": "Dado de baja"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "fecha_ultimo_mantenimiento",
+                        "etiqueta": "Último mantenimiento",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_proximo_mantenimiento",
+                        "etiqueta": "Próximo mantenimiento",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "proveedor_mantenimiento",
+                        "etiqueta": "Responsable \/ proveedor del mantenimiento",
+                        "tipo": "texto",
+                        "max": 150
+                    }
+                ]
+            }
+        ],
+        "software": [
+            {
+                "titulo": "Identificación",
+                "campos": [
+                    {
+                        "clave": "fabricante",
+                        "etiqueta": "Fabricante o desarrollador",
+                        "tipo": "texto",
+                        "max": 120
+                    },
+                    {
+                        "clave": "version",
+                        "etiqueta": "Versión",
+                        "tipo": "texto",
+                        "max": 60
+                    },
+                    {
+                        "clave": "edicion",
+                        "etiqueta": "Edición",
+                        "tipo": "texto",
+                        "max": 80,
+                        "solo_subtipos": [
+                            "sistema_operativo",
+                            "productividad"
+                        ]
+                    },
+                    {
+                        "clave": "descripcion",
+                        "etiqueta": "Descripción",
+                        "tipo": "textarea",
+                        "max": 1000
+                    }
+                ]
+            },
+            {
+                "titulo": "Compatibilidad",
+                "campos": [
+                    {
+                        "clave": "so_compatibles",
+                        "etiqueta": "Sistemas operativos compatibles",
+                        "tipo": "texto",
+                        "max": 200,
+                        "excepto_subtipos": [
+                            "sistema_operativo"
+                        ]
+                    },
+                    {
+                        "clave": "arquitectura",
+                        "etiqueta": "Arquitectura compatible",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "x64",
+                                "label": "64 bits (x64)"
+                            },
+                            {
+                                "value": "x86",
+                                "label": "32 bits (x86)"
+                            },
+                            {
+                                "value": "arm64",
+                                "label": "ARM64"
+                            },
+                            {
+                                "value": "multiplataforma",
+                                "label": "Varias \/ multiplataforma"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "requisitos",
+                        "etiqueta": "Requisitos técnicos",
+                        "tipo": "textarea",
+                        "max": 500
+                    },
+                    {
+                        "clave": "ciclo_soporte",
+                        "etiqueta": "Soporte del fabricante",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "vigente",
+                                "label": "Con soporte vigente"
+                            },
+                            {
+                                "value": "extendido",
+                                "label": "Soporte extendido"
+                            },
+                            {
+                                "value": "sin_soporte",
+                                "label": "Sin soporte del fabricante"
+                            },
+                            {
+                                "value": "desconocido",
+                                "label": "Desconocido"
+                            }
+                        ],
+                        "solo_subtipos": [
+                            "sistema_operativo"
+                        ]
+                    }
+                ]
+            },
+            {
+                "titulo": "Licenciamiento",
+                "campos": [
+                    {
+                        "clave": "tipo_licencia",
+                        "etiqueta": "Tipo de licencia",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "libre",
+                                "label": "Software libre"
+                            },
+                            {
+                                "value": "propietaria",
+                                "label": "Propietaria \/ comercial"
+                            },
+                            {
+                                "value": "institucional",
+                                "label": "Institucional \/ campus"
+                            },
+                            {
+                                "value": "educativa",
+                                "label": "Educativa"
+                            },
+                            {
+                                "value": "suscripcion",
+                                "label": "Suscripción"
+                            },
+                            {
+                                "value": "gratuita",
+                                "label": "Gratuita (freeware)"
+                            },
+                            {
+                                "value": "prueba",
+                                "label": "De prueba"
+                            },
+                            {
+                                "value": "desconocida",
+                                "label": "Desconocida"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "referencia_licencia",
+                        "etiqueta": "Número de contrato o referencia de la licencia",
+                        "tipo": "texto",
+                        "max": 100,
+                        "ayuda": "Solo una referencia (contrato, orden de compra). Nunca escribas aquí la clave del producto ni contraseñas."
+                    },
+                    {
+                        "clave": "cantidad_licencias",
+                        "etiqueta": "Licencias adquiridas",
+                        "tipo": "entero",
+                        "min": 0,
+                        "maxv": 1000000
+                    },
+                    {
+                        "clave": "fecha_adquisicion",
+                        "etiqueta": "Fecha de adquisición",
+                        "tipo": "fecha"
+                    },
+                    {
+                        "clave": "fecha_expiracion",
+                        "etiqueta": "Fecha de expiración",
+                        "tipo": "fecha",
+                        "futura": true
+                    },
+                    {
+                        "clave": "estado_licencia",
+                        "etiqueta": "Estado de la licencia",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "vigente",
+                                "label": "Licencia vigente"
+                            },
+                            {
+                                "value": "vencida",
+                                "label": "Licencia vencida"
+                            },
+                            {
+                                "value": "no_aplica",
+                                "label": "No aplica (libre\/gratuito)"
+                            },
+                            {
+                                "value": "sin_licencia_identificada",
+                                "label": "Sin licencia identificada"
+                            },
+                            {
+                                "value": "pendiente_verificacion",
+                                "label": "Pendiente de verificación"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "titulo": "Administración",
+                "campos": [
+                    {
+                        "clave": "estado_actualizacion",
+                        "etiqueta": "Estado de actualización",
+                        "tipo": "select",
+                        "opciones": [
+                            {
+                                "value": "actualizado",
+                                "label": "Actualizado"
+                            },
+                            {
+                                "value": "requiere_actualizacion",
+                                "label": "Requiere actualización"
+                            },
+                            {
+                                "value": "desconocido",
+                                "label": "Desconocido"
+                            }
+                        ]
+                    },
+                    {
+                        "clave": "frecuencia_actualizacion",
+                        "etiqueta": "Actualización de firmas",
+                        "tipo": "texto",
+                        "max": 80,
+                        "solo_subtipos": [
+                            "antivirus"
+                        ]
+                    },
+                    {
+                        "clave": "observaciones",
+                        "etiqueta": "Observaciones",
+                        "tipo": "textarea",
+                        "max": 1000
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -35,7 +35,15 @@ defineProps({
                 box-shadow var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
     user-select: none;
 }
-.app-btn:active:not(:disabled) { transform: translateY(1px) scale(0.985); }
+.app-btn:active:not(:disabled) { transform: translateY(1px) scale(0.985); transition-duration: 90ms; }
+/* Elevación discreta al pasar el cursor (solo con ratón/trackpad). */
+@media (hover: hover) {
+    .app-btn--primaria:hover:not(:disabled), .app-btn--peligro:hover:not(:disabled) { transform: translateY(-1px); }
+    .app-btn--secundaria:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .app-btn:active:not(:disabled) { transform: translateY(1px) scale(0.985); }
+}
+.app-btn :deep(.app-icon) { transition: transform var(--transition-fast); }
+.app-btn:hover:not(:disabled) :deep(.app-icon) { transform: scale(1.08); }
 .app-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .app-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 .app-btn--cargando:disabled { opacity: 0.85; cursor: progress; }
@@ -63,8 +71,9 @@ defineProps({
 .app-btn__spinner {
     width: 15px; height: 15px; border-radius: 50%;
     border: 2px solid currentColor; border-top-color: transparent;
-    animation: girar 0.7s linear infinite;
+    animation: girar 0.7s linear infinite, spinner-aparecer 160ms var(--ease) backwards;
 }
+@keyframes spinner-aparecer { from { opacity: 0; transform: scale(0.5); } }
 @keyframes girar { to { transform: rotate(360deg); } }
 
 /* Pantallas táctiles: área mínima de 44px */

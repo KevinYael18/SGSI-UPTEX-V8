@@ -29,7 +29,7 @@ class ReporteController extends Controller
     {
         $this->authorize('viewAny', Activo::class);
 
-        $pdf = $this->service->activosPdf($request->user()->id, $request->only('departamento_id'));
+        $pdf = $this->service->activosPdf($request->user()->id, $request->only('departamento_id'), $request->user());
 
         return response($pdf, 200)->header('Content-Type', 'application/pdf');
     }
@@ -49,7 +49,7 @@ class ReporteController extends Controller
     {
         $this->authorize('viewAny', Activo::class);
 
-        $activos = Activo::query()
+        $activos = Activo::query()->visiblePara($request->user())
             ->with(['departamento', 'ubicacion', 'responsable'])
             ->when($request->filled('departamento_id'), fn ($q) => $q->where('departamento_id', $request->integer('departamento_id')))
             ->get();

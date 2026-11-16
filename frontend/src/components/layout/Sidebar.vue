@@ -133,7 +133,7 @@ const compacto = computed(() => ui.sidebarColapsado && esEscritorio.value);
 .sidebar__link {
     position: relative; display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 9px 12px;
     border-radius: var(--radius-md); color: var(--text-muted); font-size: var(--text-sm); font-weight: 500;
-    transition: background var(--transition-fast), color var(--transition-fast);
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 .sidebar__link:hover { background: var(--bg-subtle); color: var(--text); text-decoration: none; }
 .sidebar__link:hover .sidebar__icono { transform: translateX(2px); color: var(--c-primary); }
@@ -146,7 +146,11 @@ const compacto = computed(() => ui.sidebarColapsado && esEscritorio.value);
 .sidebar__link--activo::before {
     content: ''; position: absolute; left: -12px; top: 8px; bottom: 8px; width: 4px; border-radius: 0 4px 4px 0;
     background: linear-gradient(180deg, var(--c-primary), var(--c-lime));
+    /* Solo presentación: el indicador "crece" al activar la sección. */
+    transform-origin: center; animation: indicador-activo 300ms var(--ease-salida, var(--ease)) backwards;
 }
+@keyframes indicador-activo { from { transform: scaleY(0.2); opacity: 0; } }
+.sidebar__link:active { transform: scale(0.985); }
 
 .sidebar--colapsado .sidebar__nav { padding-inline: var(--space-3); }
 .sidebar--colapsado .sidebar__link { justify-content: center; padding: 10px; }

@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReporteService
 {
-    public function activosPdf(int $usuarioId, array $filtros = []): string
+    public function activosPdf(int $usuarioId, array $filtros = [], ?\App\Models\Usuario $usuario = null): string
     {
-        $activos = Activo::query()
+        $activos = Activo::query()->visiblePara($usuario)
             ->with(['departamento', 'responsable'])
             ->when($filtros['departamento_id'] ?? null, fn ($q, $v) => $q->where('departamento_id', $v))
             ->get();

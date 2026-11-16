@@ -24,3 +24,6 @@ cloudflared.deb
 # General
 .DS_Store
 *.log
+
+# Respaldos locales (contienen datos personales)
+/backups

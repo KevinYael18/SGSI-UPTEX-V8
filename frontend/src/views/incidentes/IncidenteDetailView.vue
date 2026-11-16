@@ -36,8 +36,11 @@
       </AppCard>
     </div>
 
+    <!-- SGSI Intelligence Assistant: análisis del incidente (propuesta revisable; no cambia su estado). -->
+    <IaAnalisisIncidente v-if="puedeUsarIa" :uuid="uuid" class="ia-en-detalle" @nota-guardada="versionComentarios++" />
+
     <div class="detalle__grid">
-      <AppCard><CommentsPanel tipo="incidentes" :id="uuid" /></AppCard>
+      <AppCard><CommentsPanel :key="versionComentarios" tipo="incidentes" :id="uuid" /></AppCard>
       <AppCard><TimelinePanel tipo="incidentes" :id="uuid" /></AppCard>
     </div>
 
@@ -76,11 +79,15 @@ import AppModal from '../../components/ui/AppModal.vue';
 import CommentsPanel from '../../components/CommentsPanel.vue';
 import TimelinePanel from '../../components/TimelinePanel.vue';
 import EvidenciasGaleria from '../../components/EvidenciasGaleria.vue';
+import IaAnalisisIncidente from '../../components/ia/IaAnalisisIncidente.vue';
 
 const props = defineProps({ uuid: { type: String, required: true } });
 const router = useRouter();
 const auth = useAuthStore();
 const toast = useToastStore();
+const puedeUsarIa = computed(() => (auth.usuario?.permisos ?? []).includes('ia.usar'));
+// Al guardar el informe como nota, el panel de comentarios se vuelve a cargar.
+const versionComentarios = ref(0);
 
 const incidente = ref(null);
 const opcionesActivos = ref([]);

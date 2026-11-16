@@ -67,6 +67,11 @@ http.interceptors.response.use(
                 ?? 'No se pudo conectar con el servidor. Verifique su conexión.',
             details: backend?.details ?? {},
         };
+        // Cuenta suspendida (el backend ya cerró la sesión): se avisa a la SPA
+        // para que limpie el estado y lleve al login con el mensaje.
+        if (normalizado.code === 'CUENTA_SUSPENDIDA' && typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('sgsi:cuenta-suspendida', { detail: normalizado.message }));
+        }
         return Promise.reject(normalizado);
     }
 );

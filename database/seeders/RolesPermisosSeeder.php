@@ -25,6 +25,10 @@ class RolesPermisosSeeder extends Seeder
         $permisos[] = ['clave' => 'activos.editar_propio', 'modulo' => 'activos'];
         $permisos[] = ['clave' => 'incidentes.gestionar', 'modulo' => 'incidentes'];
         $permisos[] = ['clave' => 'usuarios.suspender', 'modulo' => 'usuarios'];
+        // SGSI Intelligence Assistant (ver migración 2026_11_16_000002_add_ia_permisos).
+        $permisos[] = ['clave' => 'ia.usar', 'modulo' => 'ia'];
+        $permisos[] = ['clave' => 'ia.conocimiento', 'modulo' => 'ia'];
+        $permisos[] = ['clave' => 'ia.administrar', 'modulo' => 'ia'];
 
         foreach ($permisos as $p) {
             Permiso::query()->firstOrCreate(['clave' => $p['clave']], $p);
@@ -32,11 +36,11 @@ class RolesPermisosSeeder extends Seeder
 
         $roles = [
             'Administrador' => '*', // Gate::before ya le da acceso total
-            'Auditor' => ['auditorias.*', 'documentos.ver', 'documentos.crear'],
-            'Responsable SGSI' => ['riesgos.*', 'cumplimiento.*', 'dashboard.ver', 'activos.ver'],
-            'Responsable de Activo' => ['activos.ver', 'activos.editar_propio', 'incidentes.ver', 'incidentes.crear'],
-            'Director' => ['dashboard.ver', '*.ver'],
-            'Consulta' => ['*.ver'],
+            'Auditor' => ['auditorias.*', 'documentos.ver', 'documentos.crear', 'ia.usar'],
+            'Responsable SGSI' => ['riesgos.*', 'cumplimiento.*', 'dashboard.ver', 'activos.ver', 'ia.usar', 'ia.conocimiento'],
+            'Responsable de Activo' => ['activos.ver', 'activos.editar_propio', 'incidentes.ver', 'incidentes.crear', 'ia.usar'],
+            'Director' => ['dashboard.ver', '*.ver', 'ia.usar'],
+            'Consulta' => ['*.ver', 'ia.usar'],
         ];
 
         foreach ($roles as $nombre => $patronesPermisos) {

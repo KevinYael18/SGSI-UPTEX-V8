@@ -6,5 +6,7 @@ export default {
     crear: (datos) => http.post('/v1/activos', datos),
     actualizar: (uuid, datos) => http.put(`/v1/activos/${uuid}`, datos),
     eliminar: (uuid) => http.delete(`/v1/activos/${uuid}`),
+    tiposTecnicos: () => http.get('/v1/activos/tipos-tecnicos'),
+    reconocer: (tipo, nombre) => http.get('/v1/activos/reconocer', { params: { tipo, nombre } }),
     qrUrl: (uuid) => `${http.defaults.baseURL}/v1/activos/${uuid}/qr`,
 };

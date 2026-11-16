@@ -16,7 +16,16 @@ class SolicitarRecuperacionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'max:150'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Escribe tu correo institucional.',
+            'email.email' => 'Escribe un correo electrónico válido.',
+            'email.max' => 'El correo es demasiado largo.',
         ];
     }
 }

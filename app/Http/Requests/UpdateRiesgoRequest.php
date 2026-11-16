@@ -22,6 +22,9 @@ class UpdateRiesgoRequest extends FormRequest
             'probabilidad' => ['sometimes', 'integer', 'between:1,5'],
             'impacto' => ['sometimes', 'integer', 'between:1,5'],
             'tipo_tratamiento' => ['sometimes', 'nullable', 'in:mitigar,transferir,evitar,aceptar'],
+            'probabilidad_residual' => ['sometimes', 'nullable', 'integer', 'between:1,5'],
+            'impacto_residual' => ['sometimes', 'nullable', 'integer', 'between:1,5'],
+            'fecha_revision' => ['sometimes', 'nullable', 'date'],
         ];
     }
 }

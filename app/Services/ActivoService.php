@@ -61,11 +61,13 @@ class ActivoService
     {
         $original = $activo->only(['nombre', 'confidencialidad', 'integridad', 'disponibilidad']);
 
-        if (isset($datos['confidencialidad'], $datos['integridad'], $datos['disponibilidad'])) {
+        // Si cambia cualquiera de los tres valores CIA se recalcula la criticidad
+        // (antes solo si llegaban los tres juntos y podía quedar desactualizada).
+        if (array_intersect_key($datos, array_flip(['confidencialidad', 'integridad', 'disponibilidad'])) !== []) {
             $datos['criticidad_calculada'] = $this->calculadora->calcular(
-                $datos['confidencialidad'],
-                $datos['integridad'],
-                $datos['disponibilidad'],
+                (int) ($datos['confidencialidad'] ?? $activo->confidencialidad),
+                (int) ($datos['integridad'] ?? $activo->integridad),
+                (int) ($datos['disponibilidad'] ?? $activo->disponibilidad),
             );
         }
 
@@ -87,5 +89,10 @@ class ActivoService
         }
 
         $this->activos->eliminar($activo);
+        \App\Support\Bitacora::registrar('activos', $activo->id, auth()->id(), 'delete', [
+            'evento' => 'activo_eliminado',
+            'nombre' => $activo->nombre,
+            'tipo' => $activo->tipo?->value,
+        ]);
     }
 }

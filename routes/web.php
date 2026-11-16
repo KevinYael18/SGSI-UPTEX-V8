@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
  * cliente desde ahí.
  */
 Route::fallback(function () {
+    // Una ruta de API inexistente NO debe devolver el HTML del SPA con 200:
+    // los clientes de la API recibirían una respuesta engañosa. Se responde
+    // 404 con el mismo formato de error JSON que el resto de /api.
+    if (request()->is('api', 'api/*')) {
+        return response()->json([
+            'error' => ['code' => 'RECURSO_NO_ENCONTRADO', 'message' => 'El recurso solicitado no existe.', 'details' => []],
+        ], 404);
+    }
+
     $index = public_path('index.html');
 
     if (!file_exists($index)) {

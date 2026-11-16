@@ -24,6 +24,7 @@ final class RegistroTimeline
         'incidentes' => Incidente::class,
         'auditorias' => Auditoria::class,
         'documentos' => Documento::class,
+        'computadoras' => \App\Models\Computadora::class,
     ];
 
     public static function tiposValidos(): array

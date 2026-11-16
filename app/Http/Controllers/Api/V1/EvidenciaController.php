@@ -63,4 +63,28 @@ class EvidenciaController extends Controller
         // Disco remoto (s3/MinIO): se transmite el contenido.
         return $disco->response($evidencia->path_storage, $nombre, $cabeceras, $disposicion);
     }
+
+    #[OA\Get(path: '/api/v1/evidencias/{evidencia}/verificar', tags: ['Incidentes'], summary: 'Recalcula el SHA-256 del archivo almacenado y lo compara con el registrado')]
+    public function verificar(Request $request, Evidencia $evidencia): \Illuminate\Http\JsonResponse
+    {
+        Gate::authorize('view', $evidencia->evidenciable);
+
+        $disco = Storage::disk(config('filesystems.default'));
+        $existe = $disco->exists($evidencia->path_storage);
+        $hashActual = $existe ? hash('sha256', (string) $disco->get($evidencia->path_storage)) : null;
+        $integra = $existe && hash_equals((string) $evidencia->hash_sha256, (string) $hashActual);
+
+        \App\Support\Bitacora::registrar('evidencias', $evidencia->id, $request->user()->id, 'update', [
+            'evento' => 'integridad_verificada',
+            'resultado' => $integra ? 'integra' : ($existe ? 'hash_no_coincide' : 'archivo_no_disponible'),
+        ]);
+
+        return response()->json(['data' => [
+            'integra' => $integra,
+            'archivo_disponible' => $existe,
+            'hash_registrado' => $evidencia->hash_sha256,
+            'hash_actual' => $hashActual,
+            'verificado_en' => now()->toIso8601String(),
+        ]]);
+    }
 }

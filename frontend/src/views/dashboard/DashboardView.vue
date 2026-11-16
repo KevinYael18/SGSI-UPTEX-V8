@@ -46,6 +46,19 @@
           label="Activos registrados" :valor="kpis.activos_totales" icono="activos" />
       </section>
 
+      <!-- Indicadores adicionales (cada uno solo si el backend lo envía para este rol) -->
+      <template v-for="grupo in gruposExtra" :key="grupo.titulo">
+        <h2 v-if="grupo.items.length" class="dash__grupo">{{ grupo.titulo }}</h2>
+        <section v-if="grupo.items.length" class="dash__kpis" :aria-label="grupo.titulo">
+          <component :is="item.ruta ? 'RouterLink' : 'div'" v-for="(item, i) in grupo.items" :key="item.clave" :to="item.ruta" class="dash__kpi-enlace aparecer" :style="{ animationDelay: `${i * 40}ms` }">
+            <StatCard :label="item.label" :valor="kpis[item.clave]" :tono="item.tono" :icono="item.icono" :detalle="item.detalle || ''" />
+          </component>
+        </section>
+      </template>
+
+      <!-- SGSI Intelligence Assistant: resumen ejecutivo con cifras reales (solo con dashboard.ver + ia.usar). -->
+      <IaResumenDashboard v-if="puedeResumenIa" class="aparecer dash__ia" />
+
       <div class="dash__paneles">
         <AppCard v-if="matriz.length" titulo="Matriz de riesgo" subtitulo="Probabilidad × impacto" icono="riesgos" class="aparecer dash__panel-matriz">
           <RiskMatrix :celdas="matriz" @celda-click="irARiesgos" />
@@ -61,6 +74,12 @@
             :colores-por-clave="COLORES_ESTADO_INCIDENTE"
             etiqueta-accesible="Incidentes agrupados por estado"
           />
+        </AppCard>
+      </div>
+
+      <div v-if="tieneInfra" class="dash__paneles">
+        <AppCard v-if="tieneInfra" titulo="Computadoras por laboratorio" subtitulo="Inventario tecnológico" icono="capas" class="aparecer dash__panel-grafica">
+          <BarChartGenerico :datos="graficas.computadoras_por_laboratorio" etiqueta-accesible="Computadoras registradas por laboratorio" />
         </AppCard>
       </div>
 
@@ -122,8 +141,13 @@ import UserAvatar from '../../components/ui/UserAvatar.vue';
 import RiskMatrix from '../../components/RiskMatrix.vue';
 import ComplianceChart from '../../components/ComplianceChart.vue';
 import BarChartGenerico from '../../components/BarChartGenerico.vue';
+import IaResumenDashboard from '../../components/ia/IaResumenDashboard.vue';
 
 const auth = useAuthStore();
+const puedeResumenIa = computed(() => {
+    const permisos = auth.usuario?.permisos ?? [];
+    return permisos.includes('ia.usar') && permisos.includes('dashboard.ver');
+});
 const toast = useToastStore();
 const router = useRouter();
 const kpis = ref({});
@@ -155,6 +179,21 @@ const COLORES_ESTADO_INCIDENTE = {
     resuelto: '--c-lime',
     cerrado: '--c-success',
 };
+
+// ---- Indicadores adicionales: SOLO se muestran los que el backend envía
+// (calculados con datos reales y filtrados por rol en DashboardService). ----
+const DEF_EXTRA = [
+    { titulo: 'Infraestructura', items: [
+        { clave: 'computadoras_total', label: 'Computadoras', icono: 'activos', ruta: { name: 'inventario' } },
+        { clave: 'computadoras_operativas', label: 'Equipos operativos', tono: 'exito', icono: 'check', ruta: { name: 'inventario' } },
+        { clave: 'computadoras_mantenimiento', label: 'En mantenimiento', tono: 'advertencia', icono: 'configuracion', ruta: { name: 'inventario' } },
+        { clave: 'computadoras_fuera_servicio', label: 'Fuera de servicio', tono: 'riesgo', icono: 'alerta', ruta: { name: 'inventario' } },
+        { clave: 'computadoras_antivirus_desactualizado', label: 'Antivirus por atender', tono: 'riesgo', icono: 'escudo', ruta: { name: 'inventario' } },
+        { clave: 'computadoras_software_pendiente', label: 'Con software por actualizar', tono: 'advertencia', icono: 'descargar', ruta: { name: 'inventario.software' } },
+    ] },
+];
+const gruposExtra = computed(() => DEF_EXTRA.map((g) => ({ ...g, items: g.items.filter((it) => kpis.value[it.clave] !== undefined) })));
+const tieneInfra = computed(() => Object.keys(graficas.value.computadoras_por_laboratorio || {}).length > 0);
 
 const saludo = computed(() => {
     const hora = new Date().getHours();
@@ -244,6 +283,14 @@ onMounted(async () => {
 }
 @media (min-width: 768px) { .dash__kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); } }
 @media (min-width: 1440px) { .dash__kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* ---- Grupos adicionales de indicadores ---- */
+.dash__grupo { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 var(--space-3); }
+.dash__kpi-enlace { display: block; color: inherit; min-width: 0; border-radius: var(--radius-lg); }
+.dash__kpi-enlace:hover { text-decoration: none; }
+.dash__kpi-enlace:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 3px; }
+.dash__kpi-enlace :deep(.stat-card) { height: 100%; }
+.dash__kpi-enlace:active :deep(.stat-card) { transform: scale(0.985); }
 
 /* ---- Paneles ---- */
 .dash__paneles {

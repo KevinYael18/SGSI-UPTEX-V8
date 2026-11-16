@@ -45,8 +45,11 @@ class CatalogoController extends Controller
             $query->where('departamento_id', $request->integer('departamento_id'));
         }
 
+        // Se añaden edificio, piso y tipo de espacio (campos nuevos y opcionales);
+        // `descripcion` sirve para mostrar la ubicación completa en los selectores.
         return response()->json([
-            'data' => $query->get(['id', 'nombre', 'departamento_id']),
+            'data' => $query->with('edificioRelacion')->get(['id', 'nombre', 'departamento_id', 'edificio_id', 'edificio', 'piso', 'tipo_espacio'])
+                ->map(fn ($u) => $u->only(['id', 'nombre', 'departamento_id', 'edificio_id', 'piso', 'tipo_espacio']) + ['descripcion' => $u->descripcion()]),
         ]);
     }
 
@@ -55,21 +58,30 @@ class CatalogoController extends Controller
         tags: ['Catalogos'],
         summary: 'Lista de usuarios activos para selectores (responsable de activo, auditor, etc.)'
     )]
-    public function usuarios(): JsonResponse
+    public function usuarios(Request $request): JsonResponse
     {
+        $user = $request->user();
+
+        // El rol Consulta (solo lectura) no necesita los correos institucionales:
+        // recibe únicamente id y nombre. Los demás roles los usan en los selectores
+        // de responsable/auditor.
+        $columnas = $user->rol->nombre === 'Consulta'
+            ? ['id', 'nombre']
+            : ['id', 'nombre', 'email'];
+
         return response()->json([
             'data' => Usuario::query()
                 ->where('estado', 'activo')
                 ->orderBy('nombre')
-                ->get(['id', 'nombre', 'email']),
+                ->get($columnas),
         ]);
     }
 
     #[OA\Get(path: '/api/v1/catalogos/activos', tags: ['Catalogos'], summary: 'Lista ligera de activos para selectores (sin paginar)')]
-    public function activos(): JsonResponse
+    public function activos(Request $request): JsonResponse
     {
         return response()->json([
-            'data' => Activo::query()->orderBy('nombre')->get(['id', 'uuid', 'nombre']),
+            'data' => Activo::query()->visiblePara($request->user())->orderBy('nombre')->get(['id', 'uuid', 'nombre']),
         ]);
     }
 

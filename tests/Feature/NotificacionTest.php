@@ -21,7 +21,8 @@ it('lista solo las notificaciones propias y permite marcarlas leidas', function 
 });
 
 it('no permite marcar como leida una notificacion ajena', function () {
-    $this->withoutExceptionHandling();
+    // (Antes usaba withoutExceptionHandling(), que impide que la denegación se
+    // convierta en 403 y hacía fallar la prueba aunque la regla funcionaba.)
 
     $rol = Rol::factory()->create(['nombre' => 'Director']);
     $usuario = Usuario::factory()->create(['rol_id' => $rol->id]);

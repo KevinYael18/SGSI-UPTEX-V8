@@ -29,6 +29,7 @@ class Usuario extends Authenticatable
         'estado' => EstadoUsuario::class,
         'ultimo_acceso' => 'datetime',
         'bloqueado_hasta' => 'datetime',
+        'suspendido_at' => 'datetime',
     ];
 
     // Sanctum/Auth esperan getAuthPassword(); el campo se llama password_hash
@@ -72,6 +73,16 @@ class Usuario extends Authenticatable
     {
         return $this->bloqueado_hasta !== null && $this->bloqueado_hasta->isFuture();
     }
+    public function estaSuspendido(): bool
+    {
+        return $this->estado === EstadoUsuario::Suspendido;
+    }
+
+    public function suspendidoPor(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'suspendido_por');
+    }
+
     public function sendPasswordResetNotification($token): void
     {
     $this->notify(new \App\Notifications\RestablecerPasswordNotification($token));

@@ -1,0 +1,102 @@
+/**
+ * SGSI UPTex — Capa de movimiento (animaciones y microinteracciones)
+ * ---------------------------------------------------------------------
+ * SOLO presentación: no define colores, tamaños, tipografías ni
+ * distribución. Todo usa transform/opacity (aceleradas por GPU) y se
+ * desactiva con prefers-reduced-motion (ver final de base.css y de este
+ * archivo). Duraciones cortas: la interfaz nunca espera a una animación.
+ * ---------------------------------------------------------------------
+ */
+
+:root {
+    --ease-salida: cubic-bezier(0.16, 1, 0.3, 1);   /* desaceleración natural */
+    --ease-resorte: cubic-bezier(0.34, 1.56, 0.64, 1); /* rebote leve (iconos, insignias) */
+    --dur-micro: 120ms;
+    --dur-corta: 200ms;
+    --dur-media: 320ms;
+    --dur-tema: 420ms;
+}
+
+/* ===== Cambio de tema claro/oscuro =====================================
+ * Navegadores con View Transitions: revelado circular desde el botón
+ * (stores/ui.js anima ::view-transition-new(root) con clip-path).
+ * Resto: transición cruzada de colores durante --dur-tema mediante la
+ * clase temporal .tema-transicion en <html>.                            */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+
+html.tema-transicion,
+html.tema-transicion *,
+html.tema-transicion *::before,
+html.tema-transicion *::after {
+    transition-property: background-color, color, border-color, outline-color, fill, stroke, box-shadow, text-decoration-color !important;
+    transition-duration: var(--dur-tema) !important;
+    transition-timing-function: var(--ease) !important;
+    transition-delay: 0s !important;
+}
+
+/* ===== Entradas ======================================================== */
+@keyframes entrar-arriba {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes entrar-escala {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes sello {
+    0% { opacity: 0; transform: scale(0.4) rotate(-12deg); }
+    60% { opacity: 1; transform: scale(1.12) rotate(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+@keyframes pop {
+    0% { transform: scale(0.6); }
+    60% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+}
+@keyframes sacudir {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+}
+
+/* Escalonado reutilizable: style="--i: n" en cada elemento. */
+.entrada-escalonada {
+    animation: entrar-arriba 380ms var(--ease-salida) backwards;
+    animation-delay: calc(min(var(--i, 0), 12) * 40ms);
+}
+
+/* ===== Transiciones reutilizables (<Transition name="…">) ============== */
+/* Mensajes de validación / avisos: aparecen y se retiran con suavidad. */
+.aviso-enter-active, .aviso-leave-active {
+    transition: opacity var(--dur-corta) var(--ease), transform var(--dur-corta) var(--ease);
+}
+.aviso-enter-from, .aviso-leave-to { opacity: 0; transform: translateY(-4px); }
+
+/* ===== Microinteracciones globales ===================================== */
+a, button, [role='button'], summary, label { touch-action: manipulation; }
+
+/* Elementos con rol de botón sin estilo propio: respuesta táctil inmediata. */
+button:not(:disabled):active { transition-duration: var(--dur-micro); }
+
+/* Campos de formulario nativos usados directamente en las vistas. */
+select:not(.app-select__control) { transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast); }
+
+/* Dispositivos táctiles o de baja potencia: sin elevaciones al pasar el cursor
+   (no existe hover real y se evitan repintados innecesarios). */
+@media (hover: none) {
+    .app-card:hover, .stat-card:hover { transform: none !important; }
+}
+
+/* ===== Accesibilidad ==================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .entrada-escalonada { animation: none !important; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

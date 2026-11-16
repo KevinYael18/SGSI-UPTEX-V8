@@ -4,17 +4,22 @@
       <span class="stat-card__label">{{ label }}</span>
       <span v-if="icono" class="stat-card__icono" aria-hidden="true"><AppIcon :name="icono" :size="19" /></span>
     </div>
-    <strong class="stat-card__valor" :class="tono ? `stat-card__valor--${tono}` : ''">{{ valor }}</strong>
+    <strong class="stat-card__valor" :class="tono ? `stat-card__valor--${tono}` : ''">
+      <!-- Lectores de pantalla: siempre el valor real; el conteo es solo visual. -->
+      <span class="visually-hidden">{{ valor }}</span>
+      <span aria-hidden="true">{{ mostrado }}</span>
+    </strong>
     <div v-if="progreso !== null" class="stat-card__barra" role="progressbar" :aria-valuenow="progresoSeguro" aria-valuemin="0" aria-valuemax="100">
-      <span :style="{ width: `${progresoSeguro}%` }" />
+      <span :style="{ width: `${barraVisible ? progresoSeguro : 0}%` }" />
     </div>
     <span v-if="detalle" class="stat-card__detalle">{{ detalle }}</span>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import AppIcon from './AppIcon.vue';
+import { useContadorAnimado } from '../../composables/useContadorAnimado';
 
 const props = defineProps({
     label: String,
@@ -26,6 +31,18 @@ const props = defineProps({
 });
 
 const progresoSeguro = computed(() => Math.max(0, Math.min(100, Number(props.progreso) || 0)));
+
+// ---- Solo presentación ----
+// El número sube progresivamente hasta el valor real y termina mostrando
+// exactamente el mismo texto recibido (ver useContadorAnimado).
+const { mostrado } = useContadorAnimado(() => props.valor);
+// La barra de avance arranca en 0 y se llena hasta el porcentaje real
+// (usa la transición de `width` que ya tenía el componente).
+const barraVisible = ref(false);
+onMounted(() => {
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(() => requestAnimationFrame(() => { barraVisible.value = true; }));
+    else barraVisible.value = true;
+});
 </script>
 
 <style scoped>

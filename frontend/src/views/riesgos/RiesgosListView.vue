@@ -58,6 +58,12 @@
           <div><dt>Vulnerabilidad</dt><dd>{{ riesgoSeleccionado.vulnerabilidad }}</dd></div>
           <div><dt>Nivel</dt><dd><AppBadge :tono="tonoNivel(riesgoSeleccionado.nivel_calculado)">{{ riesgoSeleccionado.nivel_calculado ?? '—' }}</AppBadge></dd></div>
           <div><dt>Tratamiento</dt><dd>{{ riesgoSeleccionado.tipo_tratamiento ?? 'Sin definir' }}</dd></div>
+          <div><dt>Riesgo residual</dt><dd>
+            <AppBadge v-if="riesgoSeleccionado.nivel_residual" :tono="tonoNivel(riesgoSeleccionado.nivel_residual)">{{ riesgoSeleccionado.nivel_residual }}</AppBadge>
+            <span v-else>Sin evaluar</span>
+            <small v-if="riesgoSeleccionado.nivel_residual"> (P{{ riesgoSeleccionado.probabilidad_residual }} × I{{ riesgoSeleccionado.impacto_residual }})</small>
+          </dd></div>
+          <div><dt>Próxima revisión</dt><dd>{{ riesgoSeleccionado.fecha_revision || 'Sin programar' }}</dd></div>
         </dl>
 
         <div class="detalle__acciones" v-if="puedeEditar || puedeEliminar">
@@ -75,6 +81,13 @@
         <AppSelect v-model="nuevo.activo_id" label="Activo" requerido placeholder="Seleccione un activo…" :opciones="opcionesActivos" />
         <AppSelect v-model="nuevo.amenaza_id" label="Amenaza" requerido placeholder="Seleccione una amenaza…" :opciones="opcionesAmenazas" />
         <AppSelect v-model="nuevo.vulnerabilidad_id" label="Vulnerabilidad" requerido placeholder="Seleccione una vulnerabilidad…" :opciones="opcionesVulnerabilidades" />
+        <IaSugerenciaRiesgo
+          v-if="nuevo.activo_id && nuevo.amenaza_id"
+          :activo-id="nuevo.activo_id"
+          :amenaza-id="nuevo.amenaza_id"
+          :vulnerabilidad-id="nuevo.vulnerabilidad_id || null"
+          @aplicar="aplicarSugerenciaIa(nuevo, $event)"
+        />
 
         <div class="form__grid">
           <AppInput v-model.number="nuevo.probabilidad" type="number" min="1" max="5" label="Probabilidad (1-5)" />
@@ -97,6 +110,15 @@
         <AppSelect v-model="edicion.activo_id" label="Activo" requerido :opciones="opcionesActivos" />
         <AppSelect v-model="edicion.amenaza_id" label="Amenaza" requerido :opciones="opcionesAmenazas" />
         <AppSelect v-model="edicion.vulnerabilidad_id" label="Vulnerabilidad" requerido :opciones="opcionesVulnerabilidades" />
+        <IaSugerenciaRiesgo
+          v-if="edicion.activo_id && edicion.amenaza_id"
+          :activo-id="edicion.activo_id"
+          :amenaza-id="edicion.amenaza_id"
+          :vulnerabilidad-id="edicion.vulnerabilidad_id || null"
+          :riesgo-id="riesgoSeleccionado?.id || null"
+          permite-residual
+          @aplicar="aplicarSugerenciaIa(edicion, $event)"
+        />
 
         <div class="form__grid">
           <AppInput v-model.number="edicion.probabilidad" type="number" min="1" max="5" label="Probabilidad (1-5)" requerido />
@@ -108,6 +130,15 @@
           placeholder="Sin definir todavía"
           :opciones="opcionesTratamiento"
         />
+        <fieldset class="residual">
+          <legend>Riesgo residual (después del tratamiento)</legend>
+          <div class="form__grid">
+            <AppInput v-model.number="edicion.probabilidad_residual" type="number" min="1" max="5" label="Probabilidad residual" />
+            <AppInput v-model.number="edicion.impacto_residual" type="number" min="1" max="5" label="Impacto residual" />
+          </div>
+          <AppInput v-model="edicion.fecha_revision" type="date" label="Fecha de próxima revisión" />
+          <p class="form__nota">El nivel residual se calcula con la misma matriz configurable. Deja ambos valores vacíos si aún no se evalúa.</p>
+        </fieldset>
         <AppButton type="submit" :cargando="guardando" style="width:100%">Guardar cambios</AppButton>
       </form>
     </AppModal>
@@ -143,6 +174,7 @@ import CommentsPanel from '../../components/CommentsPanel.vue';
 import TimelinePanel from '../../components/TimelinePanel.vue';
 import RiskMatrix from '../../components/RiskMatrix.vue';
 import BarChartGenerico from '../../components/BarChartGenerico.vue';
+import IaSugerenciaRiesgo from '../../components/ia/IaSugerenciaRiesgo.vue';
 
 const columnas = [
     { key: 'activo', label: 'Activo' },
@@ -228,6 +260,22 @@ watch(() => [nuevo.activo_id, nuevo.amenaza_id, nuevo.vulnerabilidad_id], async 
 });
 const edicion = reactive(valoresIniciales());
 
+// SGSI Intelligence Assistant: rellena SOLO lo que el usuario marcó en la
+// propuesta (probabilidad/impacto, tratamiento y, al editar, riesgo residual).
+// El usuario puede ajustar los valores antes de guardar; el nivel lo vuelve a
+// calcular el backend con la matriz configurada.
+function aplicarSugerenciaIa(formulario, cambios) {
+    const aplicados = [];
+    for (const campo of ['probabilidad', 'impacto', 'tipo_tratamiento', 'probabilidad_residual', 'impacto_residual']) {
+        if (cambios[campo] !== undefined && campo in formulario) {
+            formulario[campo] = cambios[campo];
+            aplicados.push(campo.replace('_', ' '));
+        }
+    }
+    impactoSugeridoNota.value = `Valores propuestos por SGSI Intelligence Assistant (${aplicados.join(', ')}). Revíselos antes de guardar.`;
+    toast.exito('Propuesta de SGSI Intelligence Assistant aplicada al formulario.');
+}
+
 const puedeEditar = computed(() => (auth.usuario?.permisos ?? []).includes('riesgos.editar'));
 const puedeEliminar = computed(() => (auth.usuario?.permisos ?? []).includes('riesgos.eliminar'));
 
@@ -256,6 +304,9 @@ function abrirModalEdicion() {
     edicion.probabilidad = riesgoSeleccionado.value.probabilidad;
     edicion.impacto = riesgoSeleccionado.value.impacto;
     edicion.tipo_tratamiento = riesgoSeleccionado.value.tipo_tratamiento ?? '';
+    edicion.probabilidad_residual = riesgoSeleccionado.value.probabilidad_residual ?? '';
+    edicion.impacto_residual = riesgoSeleccionado.value.impacto_residual ?? '';
+    edicion.fecha_revision = riesgoSeleccionado.value.fecha_revision ?? '';
     modalEdicion.value = true;
 }
 
@@ -303,13 +354,16 @@ async function guardarEdicion() {
     try {
         const payload = { ...edicion };
         if (!payload.tipo_tratamiento) payload.tipo_tratamiento = null;
+        for (const campo of ['probabilidad_residual', 'impacto_residual', 'fecha_revision']) {
+            if (payload[campo] === '' || payload[campo] === undefined) payload[campo] = null;
+        }
         const { data } = await riesgosApi.actualizar(riesgoSeleccionado.value.id, payload);
         toast.exito('Riesgo actualizado.');
         modalEdicion.value = false;
         riesgoSeleccionado.value = data.data;
         await cargar();
     } catch (e) {
-        toast.error(e.message);
+        toast.error(Object.values(e.details || {})[0]?.[0] || e.message);
     } finally {
         guardando.value = false;
     }
@@ -351,6 +405,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.residual { border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-4); margin: 0; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.residual legend { padding: 0 6px; font-weight: 600; font-size: var(--text-sm); }
+
 .detalle { display: flex; flex-direction: column; gap: var(--space-5); }
 .detalle__ficha {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin: 0;

@@ -23,6 +23,11 @@ class RiesgoResource extends JsonResource
             'impacto' => $this->impacto,
             'nivel_calculado' => $this->nivel_calculado?->value,
             'tipo_tratamiento' => $this->tipo_tratamiento?->value,
+            // Riesgo residual (null = aún no evaluado tras el tratamiento).
+            'probabilidad_residual' => $this->probabilidad_residual,
+            'impacto_residual' => $this->impacto_residual,
+            'nivel_residual' => $this->nivel_residual,
+            'fecha_revision' => $this->fecha_revision?->toDateString(),
             'planes_tratamiento' => PlanTratamientoResource::collection($this->whenLoaded('planesTratamiento')),
         ];
     }

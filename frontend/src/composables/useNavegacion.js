@@ -13,7 +13,10 @@ import { useAuthStore } from '../stores/auth';
  */
 const TODOS_LOS_ITEMS = [
     { to: 'dashboard', label: 'Dashboard', icono: 'dashboard', grupo: 'General', permiso: 'dashboard.ver' },
+    // SGSI Intelligence Assistant: acceso directo desde la navegación principal.
+    { to: 'asistente', label: 'SGSI Intelligence Assistant', etiquetaCorta: 'Asistente', icono: 'asistente', grupo: 'General', permiso: 'ia.usar' },
     { to: 'activos.lista', label: 'Activos', icono: 'activos', grupo: 'Gestión de seguridad', permiso: 'activos.ver' },
+    { to: 'inventario', label: 'Inventario TI', icono: 'capas', grupo: 'Gestión de seguridad', permiso: 'activos.ver' },
     { to: 'riesgos.lista', label: 'Riesgos', icono: 'riesgos', grupo: 'Gestión de seguridad', permiso: 'riesgos.ver' },
     { to: 'incidentes.lista', label: 'Incidentes', icono: 'incidentes', grupo: 'Gestión de seguridad', permiso: 'incidentes.ver' },
     { to: 'auditorias.lista', label: 'Auditorías', icono: 'auditorias', grupo: 'Gestión de seguridad', permiso: 'auditorias.ver' },

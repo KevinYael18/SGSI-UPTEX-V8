@@ -23,7 +23,11 @@ final class CacheVersionado
 
     public static function invalidar(string $espacio): void
     {
-        Cache::increment("cache_version:{$espacio}");
+        // Algunos drivers (p. ej. 'database') devuelven false al incrementar una
+        // clave que aún no existe; en ese caso se crea explícitamente.
+        if (Cache::increment("cache_version:{$espacio}") === false) {
+            Cache::forever("cache_version:{$espacio}", self::version($espacio) + 1);
+        }
     }
 
     public static function clave(string $espacio, string $sufijo): string

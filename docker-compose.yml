@@ -44,14 +44,43 @@ services:
       SESSION_DRIVER: database
       QUEUE_CONNECTION: database
       FILESYSTEM_DISK: local
+      # Correo: TODOS los valores vienen del .env (nunca credenciales aquí).
+      # Desarrollo: MAIL_HOST=mailpit + `docker compose --profile mail-dev up -d`.
+      # Producción: SMTP real (MAIL_HOST/PORT/USERNAME/PASSWORD/ENCRYPTION).
       MAIL_MAILER: "${MAIL_MAILER:-log}"
-      MAIL_HOST: "${MAIL_HOST}"
+      MAIL_HOST: "${MAIL_HOST:-}"
       MAIL_PORT: "${MAIL_PORT:-587}"
-      MAIL_USERNAME: "${MAIL_USERNAME}"
-      MAIL_PASSWORD: "${MAIL_PASSWORD}"
+      MAIL_USERNAME: "${MAIL_USERNAME:-}"
+      MAIL_PASSWORD: "${MAIL_PASSWORD:-}"
       MAIL_ENCRYPTION: "${MAIL_ENCRYPTION:-tls}"
+      MAIL_SCHEME: "${MAIL_SCHEME:-}"
+      MAIL_TIMEOUT: "${MAIL_TIMEOUT:-15}"
+      MAIL_EHLO_DOMAIN: "${MAIL_EHLO_DOMAIN:-}"
       MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
       MAIL_FROM_NAME: "${MAIL_FROM_NAME:-SGSI UPTex}"
+      # Recuperación de contraseña: vigencia del enlace (min) y espera entre envíos (s).
+      AUTH_PASSWORD_RESET_EXPIRE: "${AUTH_PASSWORD_RESET_EXPIRE:-60}"
+      AUTH_PASSWORD_RESET_THROTTLE: "${AUTH_PASSWORD_RESET_THROTTLE:-60}"
+      # Datos institucionales para el pie de los correos (sitio web opcional).
+      INSTITUCION_NOMBRE: "${INSTITUCION_NOMBRE:-Universidad Politécnica de Texcoco}"
+      INSTITUCION_SITIO_WEB: "${INSTITUCION_SITIO_WEB:-}"
+      # Inventario tecnológico (opcionales).
+      INVENTARIO_DIAS_ANTIVIRUS: "${INVENTARIO_DIAS_ANTIVIRUS:-7}"
+      INVENTARIO_IMPORTACION_MAX_KB: "${INVENTARIO_IMPORTACION_MAX_KB:-4096}"
+      INVENTARIO_IMPORTACION_MAX_FILAS: "${INVENTARIO_IMPORTACION_MAX_FILAS:-1000}"
+      # SGSI Intelligence Assistant (proveedor interno: Gemini); la clave vive solo en .env.
+      GEMINI_API_KEY: "${GEMINI_API_KEY:-}"
+      GEMINI_MODEL: "${GEMINI_MODEL:-gemini-3.5-flash}"
+      GEMINI_FALLBACK_MODELS: "${GEMINI_FALLBACK_MODELS:-gemini-3.5-flash-lite,gemini-flash-lite-latest}"
+      GEMINI_CLASSIFIER_MODEL: "${GEMINI_CLASSIFIER_MODEL:-gemini-3.5-flash-lite}"
+      GEMINI_EMBEDDING_MODEL: "${GEMINI_EMBEDDING_MODEL:-gemini-embedding-001}"
+      GEMINI_TIMEOUT: "${GEMINI_TIMEOUT:-25}"
+      GEMINI_PRESUPUESTO_SEGUNDOS: "${GEMINI_PRESUPUESTO_SEGUNDOS:-50}"
+      GEMINI_THINKING_LEVEL: "${GEMINI_THINKING_LEVEL:-low}"
+      IA_TOKENS_DIARIOS_USUARIO: "${IA_TOKENS_DIARIOS_USUARIO:-150000}"
+      IA_TOKENS_DIARIOS_GLOBAL: "${IA_TOKENS_DIARIOS_GLOBAL:-2000000}"
+      IA_MAX_CARACTERES_MENSAJE: "${IA_MAX_CARACTERES_MENSAJE:-2000}"
+      IA_CLASIFICADOR_LLM: "${IA_CLASIFICADOR_LLM:-true}"
     volumes:
       - storage_data:/var/www/html/storage/app
       - logs_data:/var/www/html/storage/logs
@@ -84,12 +113,36 @@ services:
     networks:
       - sgsi_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      # Sin credenciales: `mysqladmin ping` devuelve 0 si el servidor responde
+      # (incluso con "Access denied"), así la contraseña no queda visible en
+      # `docker inspect` ni en `docker events`.
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 20s
     
+
+  # --- Servidor SMTP de pruebas con bandeja web (Mailpit) ---
+  # Se levanta SIEMPRE con `docker compose up -d` para que el entorno local
+  # tenga un SMTP real al que conectarse (antes estaba en un perfil opcional y,
+  # si no se activaba, el envío fallaba con "Connection could not be
+  # established with host mailpit").
+  #   Bandeja: http://localhost:8025 (solo accesible desde esta máquina).
+  #   .env local:  MAIL_MAILER=smtp  MAIL_HOST=mailpit  MAIL_PORT=1025  MAIL_ENCRYPTION=null
+  # En producción apunta MAIL_HOST a tu SMTP real; Mailpit queda inactivo
+  # (o arranca solo los servicios necesarios: docker compose up -d proxy app mysql).
+  mailpit:
+    image: axllent/mailpit:v1.27
+    container_name: sgsi-uptex-mailpit
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MAILPIT_UI_PORT:-8025}:8025"
+    environment:
+      MP_MAX_MESSAGES: 500
+      TZ: "America/Mexico_City"
+    networks:
+      - sgsi_network
 
 networks:
   sgsi_network:

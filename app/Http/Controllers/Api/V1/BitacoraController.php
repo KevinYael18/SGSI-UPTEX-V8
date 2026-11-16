@@ -26,7 +26,7 @@ class BitacoraController extends Controller
 
         $registros = $this->consultaFiltrada($request)
             ->latest('created_at')
-            ->paginate((int) $request->integer('por_pagina', 25));
+            ->paginate(\App\Support\Paginacion::porPagina($request, 25));
 
         return response()->json([
             'data' => collect($registros->items())->map($this->transformarFila(...)),

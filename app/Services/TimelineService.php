@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Gate;
+
 use App\Repositories\Contracts\ActivityLogRepositoryInterface;
 use App\Support\RegistroTimeline;
 use Illuminate\Support\Collection;
@@ -22,6 +24,10 @@ class TimelineService
         if ($modelo === null) {
             throw new NotFoundHttpException("No existe {$tipo}/{$identificador}.");
         }
+
+        // El historial expone quién cambió qué: solo puede verlo quien puede ver
+        // la entidad (antes cualquier usuario autenticado lo consultaba).
+        Gate::authorize('view', $modelo);
 
         return $this->activityLog->historialDe($modelo->getTable(), $modelo->getKey())
             ->map(fn ($log) => [

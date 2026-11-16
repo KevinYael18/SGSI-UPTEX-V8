@@ -20,6 +20,7 @@ class ActivoRepository extends BaseRepository implements ActivoRepositoryInterfa
 {
     return $query
         ->with(['departamento', 'ubicacion', 'responsable'])
+        ->when($filtros['visible_para'] ?? null, fn ($q, $u) => $q->visiblePara($u))
         ->when($filtros['departamento_id'] ?? null, fn ($q, $v) => $q->where('departamento_id', $v))
         ->when($filtros['tipo'] ?? null, fn ($q, $v) => $q->where('tipo', $v))
         ->when($filtros['busqueda'] ?? null, fn ($q, $v) => $q->where('nombre', 'like', "%{$v}%"));

@@ -23,6 +23,6 @@ class BusquedaController extends Controller
     )]
     public function index(BusquedaGlobalRequest $request): JsonResponse
     {
-        return response()->json(['data' => $this->service->buscar($request->string('q')->toString())->values()]);
+        return response()->json(['data' => $this->service->buscar($request->string('q')->toString(), $request->user())->values()]);
     }
 }

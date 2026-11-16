@@ -23,9 +23,11 @@ class Riesgo extends Model
     protected $fillable = [
         'activo_id', 'amenaza_id', 'vulnerabilidad_id', 'probabilidad', 'impacto',
         'nivel_calculado', 'tipo_tratamiento',
+        'probabilidad_residual', 'impacto_residual', 'nivel_residual', 'fecha_revision',
     ];
 
     protected $casts = [
+        'fecha_revision' => 'date',
         'nivel_calculado' => NivelRiesgo::class,
         'tipo_tratamiento' => TipoTratamientoRiesgo::class,
     ];

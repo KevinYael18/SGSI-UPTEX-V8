@@ -24,6 +24,12 @@ class UsuarioResource extends JsonResource
             ),
             'estado' => $this->estado->value,
             'ultimo_acceso' => $this->ultimo_acceso?->toIso8601String(),
+            // Trazabilidad de la suspensión (solo se envía si la cuenta está suspendida).
+            'suspension' => $this->when($this->estado === \App\Enums\EstadoUsuario::Suspendido, fn () => [
+                'desde' => $this->suspendido_at?->toIso8601String(),
+                'motivo' => $this->motivo_suspension,
+                'por' => $this->suspendidoPor?->nombre,
+            ]),
             // Módulo «Mi perfil»: URL pública (relativa) de la foto, o null → avatar con iniciales.
             'foto_url' => \App\Services\PerfilService::urlPublica($this->foto_perfil_path),
         ];

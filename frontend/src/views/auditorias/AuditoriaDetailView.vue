@@ -40,6 +40,9 @@
     </AppCard>
     <EmptyState v-if="!auditoria.hallazgos.length" texto="Sin hallazgos registrados todavía." />
 
+    <!-- SGSI Intelligence Assistant: propone hallazgos; el auditor decide si los registra. -->
+    <IaAnalisisAuditoria v-if="puedeUsarIa" :id="id" puede-registrar class="ia-en-detalle" @usar-hallazgo="prellenarHallazgo" />
+
     <AppModal :abierto="modalAbierto" titulo="Registrar hallazgo" @cerrar="modalAbierto = false">
       <form class="form" @submit.prevent="registrarHallazgo">
         <AppSelect v-model="nuevoHallazgo.severidad" label="Severidad" requerido :opciones="[{value:'menor',label:'Menor'},{value:'mayor',label:'Mayor'},{value:'critica',label:'Crítica'}]" />
@@ -113,6 +116,7 @@ import AppModal from '../../components/ui/AppModal.vue';
 import EmptyState from '../../components/ui/EmptyState.vue';
 import CommentsPanel from '../../components/CommentsPanel.vue';
 import TimelinePanel from '../../components/TimelinePanel.vue';
+import IaAnalisisAuditoria from '../../components/ia/IaAnalisisAuditoria.vue';
 
 const props = defineProps({ id: { type: [String, Number], required: true } });
 const router = useRouter();
@@ -130,6 +134,14 @@ function valoresIniciales() {
     };
 }
 const nuevoHallazgo = reactive(valoresIniciales());
+
+// SGSI Intelligence Assistant: precarga el formulario OFICIAL; el auditor lo revisa y lo registra.
+const puedeUsarIa = computed(() => (auth.usuario?.permisos ?? []).includes('ia.usar'));
+function prellenarHallazgo({ severidad, descripcion }) {
+    Object.assign(nuevoHallazgo, valoresIniciales(), { severidad, descripcion });
+    generarNoConformidad.value = false;
+    modalAbierto.value = true;
+}
 const generarNoConformidad = ref(false);
 
 async function onCambiarGenerarNC() {

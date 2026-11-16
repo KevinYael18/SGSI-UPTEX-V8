@@ -27,7 +27,7 @@ class RiesgoController extends Controller
         $this->authorize('viewAny', Riesgo::class);
 
         $riesgos = $this->service->listar(
-            (int) $request->integer('por_pagina', 15),
+            \App\Support\Paginacion::porPagina($request, 15),
             $request->only(['activo_id', 'nivel_calculado'])
         );
 

@@ -69,3 +69,62 @@ export function observarTema(alCambiar) {
     observador.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => observador.disconnect();
 }
+
+/* ---------------------------------------------------------------------
+ * Movimiento de las gráficas (solo presentación, animaciones NATIVAS de
+ * Chart.js). Nunca modifican los datos: Chart.js interpola la geometría
+ * desde 0 (o desde el valor anterior) hasta el valor real del backend.
+ * ------------------------------------------------------------------- */
+
+export function prefiereMovimientoReducido() {
+    return typeof window !== 'undefined'
+        && typeof window.matchMedia === 'function'
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
+ * Animación de entrada para barras: crecen desde cero con desaceleración
+ * suave y un escalonado breve entre barras (solo la primera vez; las
+ * actualizaciones posteriores interpolan del valor anterior al nuevo sin
+ * retrasos). Devuelve `false` si el usuario pidió movimiento reducido.
+ * Cada gráfica debe pedir su propia instancia (guarda el estado "ya entró").
+ */
+export function animacionEntradaBarras({ duracion = 900, escalon = 70 } = {}) {
+    if (prefiereMovimientoReducido()) return false;
+    let yaEntro = false;
+    return {
+        duration: duracion,
+        easing: 'easeOutQuart',
+        onComplete: () => { yaEntro = true; },
+        delay: (ctx) => (ctx.type === 'data' && ctx.mode === 'default' && !yaEntro
+            ? ctx.dataIndex * escalon + ctx.datasetIndex * 40
+            : 0),
+    };
+}
+
+/** Transición corta para actualizaciones (cambio de tema, datos nuevos). */
+export const TRANSICIONES_ACTUALIZACION = {
+    active: { animation: { duration: 160 } },
+    resize: { animation: { duration: 0 } },
+};
+
+/**
+ * Ejecuta `alMostrar` la primera vez que el elemento entra en pantalla, para
+ * que la animación de entrada se vea aunque la gráfica esté más abajo.
+ * Sin IntersectionObserver (o en pruebas) se ejecuta de inmediato.
+ * Devuelve una función para cancelar la observación.
+ */
+export function alSerVisible(elemento, alMostrar) {
+    if (!elemento || typeof IntersectionObserver === 'undefined') {
+        alMostrar();
+        return () => {};
+    }
+    const observador = new IntersectionObserver((entradas) => {
+        if (entradas.some((e) => e.isIntersecting)) {
+            observador.disconnect();
+            alMostrar();
+        }
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    observador.observe(elemento);
+    return () => observador.disconnect();
+}

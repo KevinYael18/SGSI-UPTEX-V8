@@ -52,6 +52,9 @@ class DashboardController extends Controller
             'proximas_auditorias' => $this->service->proximasAuditorias(),
             'riesgos_por_nivel' => $this->service->riesgosPorNivel(),
             'auditorias_por_estado' => $this->service->auditoriasPorEstado(),
+            'computadoras_por_laboratorio' => $request->user()->can('inventario.ver') ? $this->service->computadorasPorLaboratorio() : [],
+            // La bitácora solo la ve el Administrador (misma regla que el módulo Bitácora).
+            'actividad_reciente' => $request->user()->rol?->nombre === 'Administrador' ? $this->service->actividadReciente() : [],
         ]]);
     }
 }

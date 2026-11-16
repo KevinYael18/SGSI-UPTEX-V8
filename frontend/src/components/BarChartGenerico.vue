@@ -7,7 +7,10 @@
 <script setup>
 import { onMounted, onBeforeUnmount, watch, ref } from 'vue';
 import Chart from 'chart.js/auto';
-import { resolverColor, estiloBase, conAlfa, observarTema } from './charts/temaGraficas';
+import {
+    resolverColor, estiloBase, conAlfa, observarTema,
+    animacionEntradaBarras, TRANSICIONES_ACTUALIZACION, alSerVisible,
+} from './charts/temaGraficas';
 
 const props = defineProps({
     datos: { type: Object, default: () => ({}) },
@@ -21,30 +24,62 @@ const props = defineProps({
 });
 const lienzo = ref(null);
 let instancia = null;
+let animacion = false;
 let dejarDeObservar = () => {};
+let cancelarVisibilidad = () => {};
 
-function construir() {
-    if (instancia) instancia.destroy();
-    if (!lienzo.value) return;
-
+// Los valores se toman TAL CUAL del backend; solo se calculan colores.
+function datosGrafica() {
     const datosSeguro = props.datos ?? {};
     const etiquetas = Object.keys(datosSeguro);
     const valores = Object.values(datosSeguro);
-    const maximo = Math.max(...valores, 1);
-
-    const base = estiloBase();
     const colores = etiquetas.map((clave, i) =>
         resolverColor(props.coloresPorClave[clave] ?? props.colores[i % props.colores.length]),
     );
+    return { etiquetas, valores, colores, maximo: Math.max(...valores, 1) };
+}
+
+function opciones(d) {
+    const base = estiloBase();
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        // Entrada: las barras crecen desde 0 hasta su valor real, escalonadas.
+        animation: animacion,
+        transitions: TRANSICIONES_ACTUALIZACION,
+        layout: { padding: { top: 4 } },
+        plugins: { legend: { display: false }, tooltip: base.tooltip },
+        scales: {
+            x: {
+                grid: { display: false },
+                border: { display: false },
+                ticks: { color: base.texto, font: base.fuente, maxRotation: 40, autoSkip: true },
+            },
+            y: {
+                beginAtZero: true,
+                suggestedMax: Math.ceil(d.maximo * 1.5) || 5,
+                ticks: { stepSize: 1, color: base.texto, font: base.fuente, padding: 6 },
+                grid: { color: base.rejilla, drawTicks: false },
+                border: { display: false, dash: [4, 4] },
+            },
+        },
+    };
+}
+
+function crear() {
+    if (!lienzo.value) return;
+    if (instancia) instancia.destroy();
+    animacion = animacionEntradaBarras();
+    const d = datosGrafica();
 
     instancia = new Chart(lienzo.value, {
         type: 'bar',
         data: {
-            labels: etiquetas,
+            labels: d.etiquetas,
             datasets: [{
-                data: valores,
-                backgroundColor: colores,
-                hoverBackgroundColor: colores.map((c) => conAlfa(c, 0.82)),
+                data: d.valores,
+                backgroundColor: d.colores,
+                hoverBackgroundColor: d.colores.map((c) => conAlfa(c, 0.82)),
                 borderRadius: 8,
                 borderSkipped: false,
                 maxBarThickness: 56,
@@ -52,39 +87,38 @@ function construir() {
                 barPercentage: 0.9,
             }],
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 650, easing: 'easeOutQuart' },
-            layout: { padding: { top: 4 } },
-            plugins: { legend: { display: false }, tooltip: base.tooltip },
-            scales: {
-                x: {
-                    grid: { display: false },
-                    border: { display: false },
-                    ticks: { color: base.texto, font: base.fuente, maxRotation: 40, autoSkip: true },
-                },
-                y: {
-                    beginAtZero: true,
-                    suggestedMax: Math.ceil(maximo * 1.5) || 5,
-                    ticks: { stepSize: 1, color: base.texto, font: base.fuente, padding: 6 },
-                    grid: { color: base.rejilla, drawTicks: false },
-                    border: { display: false, dash: [4, 4] },
-                },
-            },
-        },
+        options: opciones(d),
     });
 }
 
+/**
+ * Cambio de tema o de datos: se actualiza la MISMA instancia. Chart.js
+ * interpola colores y alturas desde su estado actual (sin destruir el
+ * lienzo ni volver a crecer desde cero, y sin parpadeos).
+ */
+function actualizar() {
+    if (!instancia) return;
+    const d = datosGrafica();
+    const conjunto = instancia.data.datasets[0];
+    instancia.data.labels = d.etiquetas;
+    conjunto.data = d.valores;
+    conjunto.backgroundColor = d.colores;
+    conjunto.hoverBackgroundColor = d.colores.map((c) => conAlfa(c, 0.82));
+    instancia.options = opciones(d);
+    instancia.update();
+}
+
 onMounted(() => {
-    construir();
-    dejarDeObservar = observarTema(construir);
+    cancelarVisibilidad = alSerVisible(lienzo.value, crear);
+    dejarDeObservar = observarTema(actualizar);
 });
 onBeforeUnmount(() => {
+    cancelarVisibilidad();
     dejarDeObservar();
     if (instancia) instancia.destroy();
+    instancia = null;
 });
-watch(() => props.datos, construir, { deep: true });
+watch(() => props.datos, actualizar, { deep: true });
 </script>
 
 <style scoped>

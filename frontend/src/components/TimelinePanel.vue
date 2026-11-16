@@ -7,7 +7,7 @@
         <div>
           <p class="timeline__texto">
             <strong>{{ ev.usuario || 'Sistema' }}</strong>
-            {{ etiquetaAccion(ev.accion) }}
+            {{ ev.cambios?.evento ? describirEvento(ev.cambios.evento) : etiquetaAccion(ev.accion) }}
           </p>
           <time class="timeline__fecha">{{ new Date(ev.fecha).toLocaleString('es-MX') }}</time>
         </div>
@@ -33,9 +33,19 @@ function etiquetaAccion(accion) {
     return { create: 'creó el registro', update: 'actualizó el registro', delete: 'eliminó el registro', restore: 'restauró el registro' }[accion] || accion;
 }
 
+// Sucesos específicos registrados por los servicios (cambios.evento).
+function describirEvento(evento) {
+    const texto = String(evento).replaceAll('_', ' ');
+    return `registró: ${texto}`;
+}
+
 onMounted(async () => {
-    const { data } = await timelineApi.obtener(props.tipo, props.id);
-    items.value = data.data;
+    try {
+        const { data } = await timelineApi.obtener(props.tipo, props.id);
+        items.value = data.data;
+    } catch {
+        items.value = []; // sin permiso o sin historial: se muestra el estado vacío
+    }
 });
 </script>
 

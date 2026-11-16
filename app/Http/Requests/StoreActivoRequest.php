@@ -26,6 +26,13 @@ class StoreActivoRequest extends FormRequest
             'responsable_id' => ['nullable', 'exists:usuarios,id'],
             'controles_iso_ids' => ['sometimes', 'array'],
             'controles_iso_ids.*' => ['exists:controles_iso,id'],
+            // Ficha técnica dinámica (validación detallada en FichaTecnicaActivoService).
+            'subtipo' => ['sometimes', 'nullable', 'string', 'max:40'],
+            'tecnico' => ['sometimes', 'nullable', 'array'],
+            'personalizados' => ['sometimes', 'nullable', 'array', 'max:30'],
+            'personalizados.*.nombre' => ['nullable', 'string', 'max:60'],
+            'personalizados.*.valor' => ['nullable', 'string', 'max:255'],
+            'ubicacion_detalle' => ['sometimes', 'nullable', 'string', 'max:150'],
         ];
     }
 }

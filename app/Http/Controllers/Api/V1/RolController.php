@@ -50,9 +50,19 @@ class RolController extends Controller
             abort(422, 'El rol Administrador siempre tiene acceso total (Gate::before) y no se gestiona por permisos individuales.');
         }
 
-        $request->validate(['permisos' => ['array'], 'permisos.*' => ['exists:permisos,id']]);
+        $request->validate(['permisos' => ['array'], 'permisos.*' => ['integer', 'exists:permisos,id']]);
+        $antes = $rol->permisos()->pluck('clave')->sort()->values()->all();
 
         $rol->permisos()->sync($request->input('permisos', []));
+        $despues = $rol->permisos()->pluck('clave')->sort()->values()->all();
+
+        // Trazabilidad (ISO 27001 A.8.15): un cambio de permisos altera lo que
+        // puede hacer cada usuario de ese rol.
+        \App\Support\Bitacora::registrar('roles', $rol->id, $request->user()->id, 'update', [
+            'evento' => 'permisos_rol_actualizados',
+            'agregados' => array_values(array_diff($despues, $antes)),
+            'retirados' => array_values(array_diff($antes, $despues)),
+        ]);
 
         return response()->json(['data' => [
             'id' => $rol->id,

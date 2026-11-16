@@ -34,7 +34,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function paginar(int $porPagina = 15, array $filtros = []): LengthAwarePaginator
     {
-        return $this->aplicarFiltros($this->query(), $filtros)->paginate($porPagina);
+        return $this->aplicarFiltros($this->query(), $filtros)->paginate(\App\Support\Paginacion::acotar($porPagina));
     }
 
     public function todos(array $filtros = []): Collection

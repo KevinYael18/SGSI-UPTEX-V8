@@ -29,7 +29,7 @@ class AuditoriaController extends Controller
     {
         $this->authorize('viewAny', Auditoria::class);
 
-        $auditorias = $this->service->listar((int) $request->integer('por_pagina', 15), $request->only(['auditor_id']));
+        $auditorias = $this->service->listar(\App\Support\Paginacion::porPagina($request, 15), $request->only(['auditor_id']));
 
         return ApiResponse::coleccion(AuditoriaResource::collection($auditorias));
     }

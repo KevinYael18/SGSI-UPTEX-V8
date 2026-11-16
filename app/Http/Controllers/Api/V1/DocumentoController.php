@@ -29,7 +29,7 @@ class DocumentoController extends Controller
     {
         $this->authorize('viewAny', Documento::class);
 
-        $documentos = $this->service->listar((int) $request->integer('por_pagina', 15), $request->only(['estado']));
+        $documentos = $this->service->listar(\App\Support\Paginacion::porPagina($request, 15), $request->only(['estado']));
 
         return ApiResponse::coleccion(DocumentoResource::collection($documentos));
     }

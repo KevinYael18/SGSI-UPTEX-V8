@@ -36,6 +36,9 @@
       </div>
     </AppCard>
 
+    <!-- SGSI Intelligence Assistant: análisis de la versión vigente (no modifica el documento). -->
+    <IaAnalisisDocumento v-if="puedeUsarIa && documento.versiones?.length" :uuid="uuid" class="ia-en-detalle" />
+
     <AppCard style="margin-top: var(--space-5)"><TimelinePanel tipo="documentos" :id="uuid" /></AppCard>
 
     <AppModal :abierto="modalVersion" titulo="Nueva versión" @cerrar="modalVersion = false">
@@ -78,11 +81,13 @@ import AppSelect from '../../components/ui/AppSelect.vue';
 import AppInput from '../../components/ui/AppInput.vue';
 import AppModal from '../../components/ui/AppModal.vue';
 import TimelinePanel from '../../components/TimelinePanel.vue';
+import IaAnalisisDocumento from '../../components/ia/IaAnalisisDocumento.vue';
 
 const props = defineProps({ uuid: { type: String, required: true } });
 const router = useRouter();
 const auth = useAuthStore();
 const toast = useToastStore();
+const puedeUsarIa = computed(() => (auth.usuario?.permisos ?? []).includes('ia.usar'));
 
 const documento = ref(null);
 const modalVersion = ref(false);

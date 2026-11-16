@@ -77,7 +77,8 @@ import AppIcon from '../../components/ui/AppIcon.vue';
 
 const email = ref('');
 const password = ref('');
-const error = ref('');
+const error = ref(sessionStorage.getItem('sgsi_aviso_login') || '');
+sessionStorage.removeItem('sgsi_aviso_login');
 const auth = useAuthStore();
 const ui = useUiStore();
 const router = useRouter();
@@ -87,7 +88,9 @@ async function entrar() {
     error.value = '';
     try {
         await auth.iniciarSesion(email.value, password.value);
-        router.push(route.query.redirect || { name: 'dashboard' });
+        // Solo rutas internas de la SPA ("/algo"); se descarta "//dominio" o URLs absolutas.
+        const destino = typeof route.query.redirect === 'string' && /^\/(?!\/)/.test(route.query.redirect) ? route.query.redirect : null;
+        router.push(destino || { name: 'dashboard' });
     } catch (e) {
         error.value = e.message || 'No se pudo iniciar sesión.';
     }

@@ -29,7 +29,7 @@ class IncidenteController extends Controller
         $this->authorize('viewAny', Incidente::class);
 
         $incidentes = $this->service->listar(
-            (int) $request->integer('por_pagina', 15),
+            \App\Support\Paginacion::porPagina($request, 15),
             $request->only(['estado', 'activo_id'])
         );
 
@@ -59,6 +59,10 @@ class IncidenteController extends Controller
     #[OA\Get(path: '/api/v1/incidentes/{incidente}', tags: ['Incidentes'], summary: 'Detalle de incidente (por UUID) con evidencias')]
     public function show(Incidente $incidente): JsonResponse
     {
+        // Antes no se autorizaba: cualquier usuario autenticado podía ver el
+        // incidente y sus evidencias pidiéndolo directamente a la API.
+        $this->authorize('view', $incidente);
+
         return ApiResponse::item(new IncidenteResource($incidente->load(['activo.responsable', 'reportadoPor', 'evidencias'])));
     }
 

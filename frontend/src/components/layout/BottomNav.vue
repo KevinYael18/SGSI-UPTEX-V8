@@ -9,7 +9,7 @@
           exact-active-class="bottom-nav__item--activo"
     >
       <span class="bottom-nav__icono"><AppIcon :name="item.icono" :size="21" /></span>
-      <span class="bottom-nav__texto">{{ item.label }}</span>
+      <span class="bottom-nav__texto">{{ item.etiquetaCorta || item.label }}</span>
     </RouterLink>
     <button class="bottom-nav__item" :class="{ 'bottom-nav__item--activo': ui.menuMovilAbierto }" @click="ui.abrirMenuMovil()">
       <span class="bottom-nav__icono"><AppIcon name="menu" :size="21" /></span>

@@ -24,8 +24,10 @@
         <AppIcon :name="visible ? 'ojo-off' : 'ojo'" :size="18" />
       </button>
     </span>
-    <span v-if="error" class="app-field__error" role="alert"><AppIcon name="alerta" :size="14" />{{ error }}</span>
-    <span v-else-if="ayuda" class="app-field__ayuda">{{ ayuda }}</span>
+    <Transition name="aviso" mode="out-in">
+      <span v-if="error" :key="error" class="app-field__error" role="alert"><AppIcon name="alerta" :size="14" />{{ error }}</span>
+      <span v-else-if="ayuda" class="app-field__ayuda">{{ ayuda }}</span>
+    </Transition>
   </label>
 </template>
 
@@ -79,11 +81,14 @@ const tipoEfectivo = computed(() => (esPassword.value && visible.value ? 'text' 
 .app-field__toggle {
     position: absolute; right: 4px; display: grid; place-items: center; width: 38px; height: 38px;
     border: none; background: none; border-radius: var(--radius-sm); color: var(--text-subtle); cursor: pointer;
-    transition: color var(--transition-fast), background var(--transition-fast);
+    transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
 .app-field__toggle:hover { color: var(--c-primary); background: var(--c-primary-soft); }
+.app-field__toggle:active { transform: scale(0.92); }
+.app-field__toggle :deep(.app-icon) { transition: transform var(--transition-base); }
+.app-field__toggle:hover :deep(.app-icon) { transform: scale(1.08); }
 
-.app-field--error .app-field__control { border-color: var(--c-risk); }
+.app-field--error .app-field__control { border-color: var(--c-risk); animation: sacudir 320ms var(--ease) 1; }
 .app-field--error .app-field__control:focus { box-shadow: 0 0 0 3px var(--c-risk-soft); }
 .app-field__error { display: inline-flex; align-items: center; gap: 5px; color: var(--c-risk); font-size: var(--text-xs); font-weight: 500; }
 .app-field__ayuda { color: var(--text-muted); font-size: var(--text-xs); }

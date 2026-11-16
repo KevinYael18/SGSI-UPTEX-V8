@@ -11,7 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Ubicacion extends Model
 {
     protected $table = 'ubicaciones';
-    protected $fillable = ['departamento_id', 'nombre', 'edificio'];
+    protected $fillable = ['departamento_id', 'edificio_id', 'nombre', 'edificio', 'piso', 'tipo_espacio'];
+
+    public const TIPOS_ESPACIO = [
+        'laboratorio' => 'Laboratorio', 'aula' => 'Aula', 'oficina' => 'Oficina', 'area' => 'Área',
+        'site' => 'Site / centro de datos', 'almacen' => 'Almacén', 'otro' => 'Otro espacio',
+    ];
 
     public function departamento(): BelongsTo
     {
@@ -21,5 +26,18 @@ class Ubicacion extends Model
     public function activos(): HasMany
     {
         return $this->hasMany(Activo::class);
+    }
+
+    public function edificioRelacion(): BelongsTo
+    {
+        return $this->belongsTo(Edificio::class, 'edificio_id');
+    }
+
+    /** «Laboratorio 1 · Edificio B · Planta baja» (solo con los datos registrados). */
+    public function descripcion(): string
+    {
+        $edificio = $this->edificioRelacion?->nombre ?? $this->edificio;
+
+        return implode(' · ', array_filter([$this->nombre, $edificio, $this->piso]));
     }
 }

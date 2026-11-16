@@ -27,8 +27,18 @@ const routes = [
         children: [
             { path: '', name: 'dashboard', component: () => import('../views/dashboard/DashboardView.vue') },
 
+            // SGSI Intelligence Assistant (los permisos reales los valida el backend: ia.usar).
+            { path: 'asistente', name: 'asistente', component: () => import('../views/asistente/AsistenteView.vue') },
+
             { path: 'activos', name: 'activos.lista', component: () => import('../views/activos/ActivosListView.vue') },
             { path: 'activos/:uuid', name: 'activos.detalle', component: () => import('../views/activos/ActivoDetailView.vue'), props: true },
+
+            // Inventario tecnológico (edificios → laboratorios → computadoras; catálogo de software)
+            { path: 'inventario', name: 'inventario', component: () => import('../views/inventario/InventarioView.vue') },
+            { path: 'inventario/laboratorios/:id', name: 'inventario.laboratorio', component: () => import('../views/inventario/LaboratorioView.vue'), props: true },
+            { path: 'inventario/computadoras/:uuid', name: 'inventario.computadora', component: () => import('../views/inventario/ComputadoraDetailView.vue'), props: true },
+            { path: 'inventario/ubicaciones', name: 'inventario.ubicaciones', component: () => import('../views/inventario/UbicacionesView.vue') },
+            { path: 'inventario/software', name: 'inventario.software', component: () => import('../views/inventario/SoftwareCatalogoView.vue') },
 
             { path: 'riesgos', name: 'riesgos.lista', component: () => import('../views/riesgos/RiesgosListView.vue') },
 

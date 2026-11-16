@@ -18,7 +18,7 @@ class StoreIncidenteRequest extends FormRequest
         return [
             'activo_id' => ['nullable', 'exists:activos,id'],
             'titulo' => ['required', 'string', 'max:150'],
-            'descripcion' => ['nullable', 'string'],
+            'descripcion' => ['nullable', 'string', 'max:10000'],
             'fecha_deteccion' => ['required', 'date', 'before_or_equal:now'],
             'evidencia' => ['nullable', 'file', 'max:20480', 'mimes:jpg,jpeg,png,pdf,mp4'],
         ];

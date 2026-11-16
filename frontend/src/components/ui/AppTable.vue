@@ -10,6 +10,9 @@
         <tbody>
           <tr v-if="cargando" class="app-table__fila-estado">
             <td :colspan="columnas.length" class="app-table__estado">
+              <span class="app-table__esqueleto" aria-hidden="true">
+                <span v-for="n in 3" :key="n" class="skeleton app-table__esqueleto-linea" :style="{ '--i': n }" />
+              </span>
               <span class="app-table__cargando"><span class="app-table__spinner" aria-hidden="true" />Cargando…</span>
             </td>
           </tr>
@@ -22,6 +25,8 @@
             <tr
               v-for="(fila, i) in filas"
               :key="fila.id ?? fila.uuid ?? i"
+              class="entrada-escalonada"
+              :style="{ '--i': i }"
               :class="{ 'app-table__fila--clic': clicable }"
               @click="clicable && $emit('fila-click', fila)"
             >
@@ -113,6 +118,10 @@ const finRango = computed(() => {
 .app-table__flecha :deep(svg) { transition: transform var(--transition-fast); }
 .app-table__estado { text-align: center; padding: var(--space-6); color: var(--text-muted); }
 .app-table__cargando { display: inline-flex; align-items: center; gap: 10px; font-weight: 500; }
+/* Esqueleto de carga (solo presentación): líneas que anticipan las filas. */
+.app-table__esqueleto { display: flex; flex-direction: column; gap: 10px; margin: 0 auto var(--space-4); max-width: 560px; }
+.app-table__esqueleto-linea { display: block; height: 12px; border-radius: 6px; width: calc(100% - var(--i) * 14%); margin: 0 auto; }
+.app-table__fila--clic:active td { background: var(--bg-subtle); transition: background 60ms; }
 .app-table__spinner {
     width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--c-primary-soft); border-top-color: var(--c-primary);
     animation: girar-tabla 0.8s linear infinite;

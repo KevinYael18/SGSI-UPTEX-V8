@@ -25,7 +25,7 @@ class NotificacionController extends Controller
     {
         $notificaciones = $this->service->listar(
             $request->user()->id,
-            (int) $request->integer('por_pagina', 15),
+            \App\Support\Paginacion::porPagina($request, 15),
             $request->has('leida') ? ['leida' => $request->boolean('leida')] : []
         );
 

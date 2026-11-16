@@ -13,7 +13,7 @@
           type="button"
           class="risk-matrix__celda"
           :class="claseCelda(celda(probabilidad, impacto))"
-          :style="{ gridRow: 6 - impacto, gridColumn: probabilidad + 2 }"
+          :style="{ gridRow: 6 - impacto, gridColumn: probabilidad + 2, '--i': (5 - impacto) + (probabilidad - 1) }"
           :title="titulo(celda(probabilidad, impacto))"
           :aria-label="titulo(celda(probabilidad, impacto))"
           @click="$emit('celda-click', celda(probabilidad, impacto))"
@@ -108,6 +108,35 @@ function titulo(c) {
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
 }
 .risk-matrix__celda:hover { transform: scale(1.05); box-shadow: var(--shadow-md); z-index: 1; }
+
+/* ---- Movimiento (solo presentación) ----
+   Entrada en ola diagonal desde la esquina de mayor riesgo. `backwards`
+   para que, al terminar, el hover (scale) siga funcionando. */
+.risk-matrix__celda {
+    animation: celda-entrar 420ms var(--ease-salida, var(--ease)) backwards;
+    animation-delay: calc(var(--i, 0) * 38ms);
+}
+.risk-matrix__celda:active { transform: scale(0.97); transition-duration: 90ms; }
+@keyframes celda-entrar {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+}
+/* Celdas críticas con riesgos: un anillo que pulsa DOS veces tras la entrada
+   (no en bucle) para dirigir la atención sin cambiar color ni valor. */
+.risk-matrix__celda--critico.risk-matrix__celda--con-riesgos::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    box-shadow: 0 0 0 2px var(--tono); opacity: 0;
+    animation: celda-alerta 1.3s var(--ease) 2;
+    animation-delay: calc(var(--i, 0) * 38ms + 520ms);
+}
+@keyframes celda-alerta {
+    0% { opacity: 0.75; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.32); }
+}
+.risk-matrix__conteo { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+    .risk-matrix__celda, .risk-matrix__celda--critico.risk-matrix__celda--con-riesgos::after { animation: none; }
+}
 .risk-matrix__celda:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
 .risk-matrix__celda--bajo { --tono: var(--c-success); --fondo: var(--c-success-soft); }
 .risk-matrix__celda--medio { --tono: var(--c-amber); --fondo: var(--c-amber-soft); }

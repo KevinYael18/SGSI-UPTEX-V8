@@ -17,7 +17,7 @@ class StoreHallazgoRequest extends FormRequest
     {
         return [
             'severidad' => ['required', 'in:menor,mayor,critica'],
-            'descripcion' => ['required', 'string'],
+            'descripcion' => ['required', 'string', 'max:5000'],
             'no_conformidad' => ['sometimes', 'array'],
             'no_conformidad.accion_correctiva' => ['sometimes', 'array'],
             'no_conformidad.accion_correctiva.responsable_id' => ['required_with:no_conformidad.accion_correctiva', 'exists:usuarios,id'],

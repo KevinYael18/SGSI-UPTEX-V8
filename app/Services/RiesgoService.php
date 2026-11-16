@@ -79,6 +79,7 @@ class RiesgoService
 
         $nivel = $this->matrizResolver->resolver($datos['probabilidad'], $datos['impacto']);
         $datos['nivel_calculado'] = $nivel->value;
+        $datos = $this->conNivelResidual($datos, null);
 
         return DB::transaction(function () use ($datos, $nivel, $usuarioId) {
             $riesgo = $this->riesgos->crear($datos);
@@ -99,11 +100,14 @@ class RiesgoService
 
     public function actualizar(Riesgo $riesgo, array $datos, ?int $usuarioId = null): Riesgo
     {
-        if (isset($datos['probabilidad'], $datos['impacto'])) {
+        // Si cambia la probabilidad o el impacto (aunque llegue solo uno) se
+        // recalcula el nivel con la matriz; antes podía quedar inconsistente.
+        if (array_key_exists('probabilidad', $datos) || array_key_exists('impacto', $datos)) {
             $datos['nivel_calculado'] = $this->matrizResolver
-                ->resolver($datos['probabilidad'], $datos['impacto'])
+                ->resolver((int) ($datos['probabilidad'] ?? $riesgo->probabilidad), (int) ($datos['impacto'] ?? $riesgo->impacto))
                 ->value;
         }
+        $datos = $this->conNivelResidual($datos, $riesgo);
 
         return DB::transaction(function () use ($riesgo, $datos, $usuarioId) {
             $actualizado = $this->riesgos->actualizar($riesgo, $datos);
@@ -113,8 +117,38 @@ class RiesgoService
         });
     }
 
+    /**
+     * Riesgo residual (tras aplicar el tratamiento): su nivel se resuelve con la
+     * MISMA matriz configurable. Solo se calcula si hay probabilidad e impacto
+     * residuales; si se borran ambos, el nivel residual también se limpia.
+     */
+    private function conNivelResidual(array $datos, ?Riesgo $riesgo): array
+    {
+        if (!array_key_exists('probabilidad_residual', $datos) && !array_key_exists('impacto_residual', $datos)) {
+            return $datos;
+        }
+        $p = $datos['probabilidad_residual'] ?? ($riesgo?->probabilidad_residual);
+        $i = $datos['impacto_residual'] ?? ($riesgo?->impacto_residual);
+        if (array_key_exists('probabilidad_residual', $datos) && $datos['probabilidad_residual'] === null) {
+            $p = null;
+        }
+        if (array_key_exists('impacto_residual', $datos) && $datos['impacto_residual'] === null) {
+            $i = null;
+        }
+        $datos['nivel_residual'] = ($p !== null && $i !== null)
+            ? $this->matrizResolver->resolver((int) $p, (int) $i)->value
+            : null;
+
+        return $datos;
+    }
+
     public function eliminar(Riesgo $riesgo): void
     {
         $this->riesgos->eliminar($riesgo);
+        \App\Support\Bitacora::registrar('riesgos', $riesgo->id, auth()->id(), 'delete', [
+            'evento' => 'riesgo_eliminado',
+            'activo_id' => $riesgo->activo_id,
+            'nivel_calculado' => $riesgo->nivel_calculado?->value,
+        ]);
     }
 }

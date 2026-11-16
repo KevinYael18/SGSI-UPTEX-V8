@@ -7,4 +7,6 @@ export default {
     eliminar: (id) => http.delete(`/v1/riesgos/${id}`),
     impactoSugerido: (activoId) => http.get('/v1/riesgos/impacto-sugerido', { params: { activo_id: activoId } }),
     sugerencia: (params) => http.get('/v1/riesgos/sugerencia', { params }),
+    // SGSI Intelligence Assistant: análisis del riesgo (controles, P/I, amenazas, CID, tratamiento, residual).
+    sugerirConIa: (datos) => http.post('/v1/ia/sugerir-riesgo', datos),
 };

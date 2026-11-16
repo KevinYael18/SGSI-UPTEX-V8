@@ -7,7 +7,15 @@
 
     <AppTable :columnas="columnas" :filas="usuarios" :cargando="cargando" :paginacion="meta" @cambiar-pagina="cambiarPagina">
       <template #col-estado="{ fila }">
-        <AppBadge :tono="fila.estado === 'activo' ? 'exito' : 'riesgo'">{{ fila.estado }}</AppBadge>
+        <div class="estado-cuenta">
+          <AppBadge :tono="fila.estado === 'activo' ? 'exito' : 'riesgo'">{{ fila.estado === 'activo' ? 'Activo' : 'Suspendido' }}</AppBadge>
+          <span v-if="fila.suspension" class="estado-cuenta__detalle" :title="fila.suspension.motivo || ''">
+            <template v-if="fila.suspension.desde">Desde {{ formatearFecha(fila.suspension.desde) }}</template>
+            <template v-else>Suspendida antes del registro de fechas</template>
+            <template v-if="fila.suspension.por"> · por {{ fila.suspension.por }}</template>
+            <template v-if="fila.suspension.motivo"><br>Motivo: {{ fila.suspension.motivo }}</template>
+          </span>
+        </div>
       </template>
       <template #col-acciones="{ fila }">
         <div class="acciones-fila">
@@ -26,6 +34,20 @@
         <EmptyState texto="No hay usuarios registrados." />
       </template>
     </AppTable>
+
+    <AppModal :abierto="!!suspension.fila" titulo="Suspender cuenta" @cerrar="suspension.fila = null">
+      <form class="form" @submit.prevent="confirmarSuspension">
+        <p class="form__nota">
+          <strong>{{ suspension.fila?.nombre }}</strong> perderá el acceso de inmediato: se cerrarán sus sesiones abiertas
+          y no podrá iniciar sesión hasta que reactives la cuenta. Sus datos se conservan.
+        </p>
+        <AppInput v-model="suspension.motivo" label="Motivo (opcional, queda en la bitácora)" maxlength="255" placeholder="Ej. Baja temporal, equipo extraviado…" />
+        <div class="acciones-modal">
+          <AppButton type="button" variante="secundaria" @click="suspension.fila = null">Cancelar</AppButton>
+          <AppButton type="submit" variante="peligro" :cargando="suspension.enviando">Suspender cuenta</AppButton>
+        </div>
+      </form>
+    </AppModal>
 
     <AppModal :abierto="modalAbierto" titulo="Nuevo usuario" @cerrar="modalAbierto = false">
       <form class="form" @submit.prevent="crear">
@@ -67,7 +89,7 @@ const columnas = [
     { key: 'nombre', label: 'Nombre' },
     { key: 'email', label: 'Correo' },
     { key: 'rol', label: 'Rol', width: '160px' },
-    { key: 'estado', label: 'Estado', width: '110px' },
+    { key: 'estado', label: 'Estado', width: '220px' },
     { key: 'acciones', label: '', width: '220px' },
 ];
 
@@ -160,7 +182,32 @@ async function guardarEdicion() {
     }
 }
 
+const suspension = reactive({ fila: null, motivo: '', enviando: false });
+
+function formatearFecha(iso) {
+    return iso ? new Date(iso).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+}
+
+async function confirmarSuspension() {
+    suspension.enviando = true;
+    try {
+        await usuariosApi.suspender(suspension.fila.uuid, suspension.motivo.trim() || null);
+        toast.exito('Cuenta suspendida. El usuario perdió el acceso de inmediato.');
+        suspension.fila = null;
+        await cargar();
+    } catch (e) {
+        toast.error(e.details?.usuario?.[0] || e.message);
+    } finally {
+        suspension.enviando = false;
+    }
+}
+
 async function alternarEstado(fila) {
+    // Suspender pide confirmación y motivo; reactivar es directo.
+    if (fila.estado === 'activo') {
+        Object.assign(suspension, { fila, motivo: '', enviando: false });
+        return;
+    }
     try {
         await usuariosApi.suspender(fila.uuid);
         toast.exito(fila.estado === 'activo' ? 'Usuario suspendido.' : 'Usuario reactivado.');
@@ -177,6 +224,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.estado-cuenta { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.estado-cuenta__detalle { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.4; overflow-wrap: anywhere; }
+.acciones-modal { display: flex; justify-content: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+
 .acciones-fila { display: flex; gap: var(--space-2); flex-wrap: wrap; justify-content: flex-end; }
 @media (min-width: 721px) { .acciones-fila { justify-content: flex-start; } }
 </style>

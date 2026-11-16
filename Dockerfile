@@ -9,7 +9,7 @@
 FROM node:20-bookworm-slim AS frontend-build
 WORKDIR /frontend
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm ci
 COPY frontend/ ./
 RUN npm run build
 
@@ -23,28 +23,26 @@ RUN npm run build
 FROM composer:2 AS composer-build
 WORKDIR /build
 
-# 1) Esqueleto oficial de Laravel 12, sin dependencias de desarrollo todavía
-RUN composer create-project laravel/laravel:^12.0 . --no-interaction --no-scripts --prefer-dist
+# 1) Archivos del esqueleto oficial de Laravel 12 (artisan, bootstrap/,
+#    config/, public/...) SIN instalar dependencias: las versiones las fija
+#    el composer.lock versionado, no lo que haya en Packagist el día del build.
+RUN composer create-project laravel/laravel:^12.0 . --no-interaction --no-scripts --prefer-dist --no-install
 
-# 2) Paquetes adicionales que este proyecto requiere.
-#    --ignore-platform-reqs: la imagen `composer:2` (usada solo para
-#    resolver dependencias) no trae ext-gd ni otras extensiones que SÍ
-#    se instalan en la imagen final (etapa `app`, php:8.4-apache). Sin
-#    este flag, Composer rechaza paquetes como simplesoftwareio/simple-qrcode
-#    por validar contra el PHP equivocado (el de esta etapa, no el final).
-RUN composer require --no-interaction --no-scripts --ignore-platform-reqs \
-        laravel/sanctum \
-        darkaonline/l5-swagger \
-        barryvdh/laravel-dompdf \
-        simplesoftwareio/simple-qrcode \
-        phpoffice/phpspreadsheet
-RUN composer require --dev --no-interaction --no-scripts --ignore-platform-reqs -W \
-        pestphp/pest \
-        pestphp/pest-plugin-laravel \
-        laravel/pint \
-        mockery/mockery
-# 3) Scaffolding de Sanctum en modo API (genera routes/api.php + publica config)
-RUN php artisan install:api --no-interaction --without-migration-prompt || true
+# 2) Dependencias exactas del proyecto (composer.json + composer.lock del repo).
+#    --ignore-platform-reqs: la imagen `composer:2` no trae ext-gd ni otras
+#    extensiones que SÍ se instalan en la imagen final (etapa `app`,
+#    php:8.4-apache); sin el flag, Composer validaría contra el PHP equivocado.
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-scripts --prefer-dist --optimize-autoloader --ignore-platform-reqs
+
+# 3) Scaffolding de Sanctum en modo API (genera routes/api.php + publica config).
+#    install:api ejecuta internamente `composer require laravel/sanctum:^4.0`
+#    (por eso COMPOSER_IGNORE_PLATFORM_REQS) y puede subir Sanctum o reescribir
+#    composer.json; se vuelven a copiar el json y el lock y se reinstala para
+#    quedar exactamente en las versiones bloqueadas.
+RUN COMPOSER_IGNORE_PLATFORM_REQS=1 php artisan install:api --no-interaction --without-migration-prompt
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-scripts --prefer-dist --optimize-autoloader --ignore-platform-reqs
 # install:api genera el archivo de personal_access_tokens con la fecha/hora
 # EXACTA del momento del build en el nombre — eso significa que cada
 # reconstrucción produce un nombre distinto, y Laravel cree que es una
@@ -76,6 +74,12 @@ COPY routes/web.php ./routes/web.php
 COPY resources/views/reportes/ ./resources/views/reportes/
 COPY resources/views/components/ ./resources/views/components/
 COPY resources/views/vendor/ ./resources/views/vendor/
+# Plantillas institucionales de correo (HTML + texto plano) y el logotipo que
+# se incrusta en ellas como imagen CID (no depende de que el servidor sea
+# accesible desde Internet para que el logo se vea en Gmail/Outlook).
+COPY resources/views/emails/ ./resources/views/emails/
+COPY resources/images/ ./resources/images/
+COPY config/sgsi.php ./config/sgsi.php
 COPY pint.json ./pint.json
 COPY phpunit.xml ./phpunit.xml
 
@@ -104,6 +108,13 @@ RUN sed -i '/\$middleware->statefulApi();/a\        $middleware->trustProxies(at
 #     cualquier hora local que mandara el frontend (ej. al reportar un
 #     incidente con la hora actual).
 RUN sed -i "s#'timezone' => 'UTC',#'timezone' => 'America/Mexico_City',#" config/app.php
+
+# 6e) Correo y recuperación de contraseña: Laravel 12 ignora MAIL_ENCRYPTION
+#     (solo lee MAIL_SCHEME); este script lo vuelve a respetar, exige STARTTLS
+#     cuando MAIL_ENCRYPTION=tls, acota el timeout SMTP y hace configurable la
+#     vigencia del token. Falla el build si el esqueleto cambió y no aplica.
+COPY docker/laravel/configurar-correo.php /tmp/configurar-correo.php
+RUN php /tmp/configurar-correo.php /build && rm -f /tmp/configurar-correo.php
 
 # 7) Nota: NO se regeneran migraciones de sessions/cache/jobs con
 #    `session:table`/`cache:table`/`queue:table` — Laravel 12 ya las

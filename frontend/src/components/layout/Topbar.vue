@@ -24,9 +24,19 @@
           <AppIcon :name="buscadorAbierto ? 'cerrar' : 'buscar'" :size="20" />
         </button>
 
+        <RouterLink
+          v-if="puedeUsarIa"
+          :to="{ name: 'asistente' }"
+          class="topbar__icono-btn topbar__ia"
+          aria-label="Abrir SGSI Intelligence Assistant"
+          title="SGSI Intelligence Assistant"
+        >
+          <AppIcon name="asistente" :size="20" />
+        </RouterLink>
+
         <button
           class="topbar__icono-btn topbar__tema"
-          @click="ui.alternarTema()"
+          @click="ui.alternarTema($event)"
           :aria-label="ui.tema === 'light' ? 'Modo oscuro' : 'Modo claro'"
           :title="ui.tema === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'"
         >
@@ -75,7 +85,7 @@
                 <span class="topbar__menu-icono"><AppIcon name="candado" :size="17" /></span>
                 <span class="topbar__menu-texto">Cambiar contraseña<small>Actualiza tus credenciales</small></span>
               </RouterLink>
-              <button class="topbar__menu-item" role="menuitem" @click="ui.alternarTema()">
+              <button class="topbar__menu-item" role="menuitem" @click="ui.alternarTema($event)">
                 <span class="topbar__menu-icono"><AppIcon :name="ui.tema === 'light' ? 'luna' : 'sol'" :size="17" /></span>
                 <span class="topbar__menu-texto">{{ ui.tema === 'light' ? 'Modo oscuro' : 'Modo claro' }}</span>
               </button>
@@ -103,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 import { useUiStore } from '../../stores/ui';
@@ -113,6 +123,7 @@ import AppIcon from '../ui/AppIcon.vue';
 import UserAvatar from '../ui/UserAvatar.vue';
 
 const auth = useAuthStore();
+const puedeUsarIa = computed(() => (auth.usuario?.permisos ?? []).includes('ia.usar'));
 const ui = useUiStore();
 const router = useRouter();
 const route = useRoute();
@@ -170,6 +181,9 @@ watch(() => route.fullPath, () => {
     transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 .topbar__icono-btn:hover { background: var(--bg-subtle); color: var(--c-primary); border-color: var(--border); }
+.topbar__ia { color: var(--c-primary); }
+.topbar__ia:hover { text-decoration: none; }
+.topbar__ia.router-link-active { background: var(--c-primary-soft); }
 .topbar__hamburguesa, .topbar__marca, .topbar__buscar-movil { display: none; }
 
 .topbar__marca { align-items: center; gap: 8px; flex-shrink: 0; }

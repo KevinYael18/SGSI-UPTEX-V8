@@ -26,7 +26,7 @@ class ControlIsoController extends Controller
     {
         $this->authorize('viewAny', ControlIso::class);
 
-        $controles = $this->service->listar((int) $request->integer('por_pagina', 20), $request->only(['categoria', 'estado_implementacion']));
+        $controles = $this->service->listar(\App\Support\Paginacion::porPagina($request, 20), $request->only(['categoria', 'estado_implementacion']));
 
         return ApiResponse::coleccion(ControlIsoResource::collection($controles));
     }
